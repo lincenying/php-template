@@ -1,0 +1,23 @@
+<!--{if !isPjax()}-->
+<!--{template top}-->
+<!--{/if}-->
+    <table>
+        <!--{loop $list $var $val}-->
+        <tr>
+            <td>{ $val['c_id'] }</td>
+            <td>{ $val['c_userid'] }</td>
+            <td><a href="./detail.php?id={ $val['c_arcid'] }">{ $val['c_arctitle'] }</a></td>
+            <td>{ $val['c_arcid'] }</td>
+            <td>{ $val['c_arctime'] }</td>
+            <td>{ $val['c_posttime'] }</td>
+        </tr>
+        <!-- {/loop} -->
+    </table>
+    <div class="pjax-box">
+        <ul id="page">
+            { $pages }
+        </ul>
+    </div>
+<!--{if !isPjax()}-->
+<!--{template footer}-->
+<!--{/if}-->

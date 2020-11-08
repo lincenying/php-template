@@ -1,0 +1,24 @@
+body {
+    color: red;
+}
+
+ul, li {
+    list-style: none;
+}
+
+table {
+    width: 1200px;
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+}
+td {
+    padding: 5px;
+    border: 1px solid #ccc;
+}
+
+#page {
+    display: flex;
+}
+#page li {
+    padding: 10px;
+}
