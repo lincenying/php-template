@@ -1,6 +1,5 @@
 <?php
 include 'inc/conn.php';
-include cyRoom_ROOT . 'inc/func.page.php';
 include cyRoom_ROOT . 'inc/func.template.php';
 
 $id = isset($id) ? intval($id) : '';

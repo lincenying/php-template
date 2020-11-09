@@ -1,3 +1,0 @@
-Time : 03:49:07
-SQLSTATE[HY000]: General error: 2031 
-Raw SQL : SELECT * FROM cyxw_archive where c_id = ?
