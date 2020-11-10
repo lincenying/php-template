@@ -9,7 +9,7 @@ $nextPage = $page + 1;
 $perPage = 10;
 
 // 统计数量
-$countSql = 'select count(*) as num from cyxw_fav';
+$countSql = 'select count(*) as num from cyxw_archive';
 $total = 0;
 $memcache_key_total = getSqlMd5($countSql, []);
 if ($onmemcache == false || !($total = $memcache->get($memcache_key_total))) {
@@ -26,7 +26,7 @@ $pages = $classPage->show(2);
 $order = ' order by c_id desc';
 $limit = ' limit ' . $limitLeft . ', ' . $perPage;
 $params = [];
-$sql = 'SELECT * FROM cyxw_fav' . $order . $limit;
+$sql = 'SELECT * FROM cyxw_archive' . $order . $limit;
 $memcache_key = getSqlMd5($sql, $params);
 $list = [];
 if ($onmemcache == false || !($list = $memcache->get($memcache_key))) {
