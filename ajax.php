@@ -16,10 +16,10 @@ $action = isset($action) ? $action : '';
 if ($action === 'upload') {
     $config = [
         'files' => $_FILES['file'],
-        'isSmall' => 1,
-        'isMark' => 1,
+        'isSmall' => 0,
+        'isMark' => 0,
         'waterText' => 'test',
-        'isResize' => 1,
+        'isResize' => 0,
     ];
     $upload = new upload($config);
     $data = $upload->upMore();
