@@ -593,12 +593,3 @@ class upload
         }
     }
 } ?>
-<?
-	//$upload = new upload();
-	//$upload->filePath="../archiveimg/2009-05-26/";
-	//$upload->text =  iconv("GB2312","UTF-8","www.xssep.cn");
-	//$upload->logoPos = array(30,33);
-	//$upload->waterMark("2009-05-26_QnMsoYDb.jpg");
-	//$upload->myImageResize("2009-05-26_QnMsoYDb.jpg");
-	//$upload->smallImg("2009-05-26_QnMsoYDb.jpg");
-?>
