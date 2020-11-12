@@ -1,7 +1,7 @@
 <?php
 header('Cache-Control: no-cache, must-revalidate');
 header('Pragma: no-cache');
-header('Content-Type:text/html;charset=utf-8');
+header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods:POST,GET');
 // 带 cookie 的跨域访问
@@ -28,7 +28,7 @@ if ($action === 'upload') {
     $return['code'] = 200;
     $return['action'] = $action;
     $return['data'] = $data;
-    $jsonStr = json_encode($return);
+    $jsonStr = json_encode($return, JSON_UNESCAPED_UNICODE);
     echo $jsonStr;
 } elseif ($action === 'article-list') {
     $page = isset($page) ? intval($page) : 1;
@@ -73,7 +73,7 @@ if ($action === 'upload') {
         $return['msg'] = $e->getMessage();
     }
 
-    $jsonStr = json_encode($return);
+    $jsonStr = json_encode($return, JSON_UNESCAPED_UNICODE);
     echo $jsonStr;
 } elseif ($action === 'article-detail') {
     $id = isset($id) ? intval($id) : '';
@@ -110,6 +110,6 @@ if ($action === 'upload') {
         $return['msg'] = $e->getMessage();
     }
 
-    $jsonStr = json_encode($return);
+    $jsonStr = json_encode($return, JSON_UNESCAPED_UNICODE);
     echo $jsonStr;
 }
