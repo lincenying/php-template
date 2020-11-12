@@ -1,0 +1,12 @@
+{
+  "name": "php-template",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://e.coding.net/lincenying/php/php-template.git",
+  "author": "林岑影 <lincenying@qq.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@prettier/plugin-php": "^0.15.1",
+    "prettier": "^2.1.2"
+  }
+}

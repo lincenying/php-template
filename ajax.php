@@ -10,6 +10,7 @@ header('Access-Control-Allow-Credentials: true');
 header('Access-Control-Allow-Headers:X-Requested-With,Content-Type,X-CSRF-Token,Authorization');
 
 include 'inc/conn.php';
+include cyRoom_ROOT . 'inc/func.ubb.php';
 require cyRoom_ROOT . 'inc/func.upload.php';
 
 $action = isset($action) ? $action : '';
@@ -29,7 +30,7 @@ if ($action === 'upload') {
     $return['data'] = $data;
     $jsonStr = json_encode($return);
     echo $jsonStr;
-} else if ($action === 'article-list') {
+} elseif ($action === 'article-list') {
     $page = isset($page) ? intval($page) : 1;
     $prevPage = $page - 1;
     $nextPage = $page + 1;
@@ -66,7 +67,7 @@ if ($action === 'upload') {
         $return['data']['current_page'] = $page;
         $return['data']['last_page'] = ceil($total / $perPage);
         $return['data']['data'] = $list;
-    }  catch (Exception $e) {
+    } catch (Exception $e) {
         $return['code'] = 300;
         $return['data'] = null;
         $return['msg'] = $e->getMessage();
@@ -74,7 +75,7 @@ if ($action === 'upload') {
 
     $jsonStr = json_encode($return);
     echo $jsonStr;
-} else if ($action === 'article-detail') {
+} elseif ($action === 'article-detail') {
     $id = isset($id) ? intval($id) : '';
 
     $return = [];
@@ -96,9 +97,14 @@ if ($action === 'upload') {
         if (empty($row)) {
             throw new Exception('没有找到该文章');
         }
+
+        $ubb = new Ubb();
+        $ubb->setString($row['c_content']);
+        $row['c_content'] = $ubb->parse();
+
         $return['code'] = 200;
         $return['data'] = $row;
-    }  catch (Exception $e) {
+    } catch (Exception $e) {
         $return['code'] = 300;
         $return['data'] = null;
         $return['msg'] = $e->getMessage();

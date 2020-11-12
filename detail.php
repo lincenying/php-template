@@ -1,5 +1,6 @@
 <?php
 include 'inc/conn.php';
+include cyRoom_ROOT . 'inc/func.ubb.php';
 include cyRoom_ROOT . 'inc/func.template.php';
 
 $id = isset($id) ? intval($id) : '';
@@ -16,6 +17,10 @@ if ($onmemcache == false || !($row = $memcache->get($memcache_key))) {
     $row = $db->row($sql, $params);
     $onmemcache && $memcache->set($memcache_key, $row, 0, 86400);
 }
+
+$ubb = new Ubb();
+$ubb->setString($row['c_content']);
+$row['c_content'] = $ubb->parse();
 
 $seo = [
     'title' => $row['c_title'],
