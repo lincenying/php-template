@@ -32,9 +32,9 @@ if ($action === 'upload') {
     echo $jsonStr;
 } elseif ($action === 'article-list') {
     $page = isset($page) ? intval($page) : 1;
+    $perPage = isset($perPage) ? intval($perPage) : 10;
     $prevPage = $page - 1;
     $nextPage = $page + 1;
-    $perPage = 10;
 
     $return = [];
     try {
