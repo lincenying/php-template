@@ -1,0 +1,20 @@
+{% extends 'layout.twig' %}
+
+{% import 'import/form.twig' as form %}
+
+{% block content %}
+	{% if action == 'post' %}
+		<div>Your name: {{ post.name }}</div>
+		<div>Email: {{ post.email }}</div>
+		<div>Message: {{ post.message }}</div>
+	{% else %}
+		<form action="./contact.php?action=post" method="post">
+			{{ form.input('name', 'Your name', '请输入用户名', {class: 'superclass'}) }}
+			{{ form.input('email', 'Email', '请输入邮箱') }}
+			{{ form.textarea('message', 'Message') }}
+			<div class="form-group">
+				<button type="submit" class="btn btn-primary">Send</button>
+			</div>
+		</form>
+	{% endif %}
+{% endblock %}

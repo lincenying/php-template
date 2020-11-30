@@ -1,0 +1,12 @@
+{
+    "name": "lincenying/twigproject.local",
+    "authors": [
+        {
+            "name": "LCY",
+            "email": "lincenying@qq.com"
+        }
+    ],
+    "require": {
+        "twig/twig": "^3.1"
+    }
+}

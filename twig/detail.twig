@@ -1,0 +1,12 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+    <div class="detail">
+        <h4>{{ row.c_title }}</h4>
+        <div class="cotnent">
+            {% autoescape false %}
+                {{ row.c_content }}
+            {% endautoescape %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>{{ seo.title }}</title>
+		<meta charset="utf-8">
+		<meta name="google" content="notranslate">
+		<meta name="keyword" content="{{ seo.keyword }}">
+		<meta name="description" content="{{ seo.desc }}">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no"/>
+		{% block css %}
+			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+			<link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+		{% endblock %}
+	</head>
+	<body data-config='{"page":"{{ global.script }}"}'>
+		<div class="container">
+			<div class="nav">
+				<a href="./">列表</a>
+				|
+				<a href="./contact.php">表单</a>
+				|
+				<a href="./company.php">简介</a>
+				|
+			</div>
+			<div id="pjax">
+				{% block content %}
+					<div></div>
+				{% endblock %}
+			</div>
+		</div>
+		{% block js %}
+			<script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+			<script src="https://cdn.jsdelivr.net/npm/jquery-pjax/jquery.pjax.min.js"></script>
+			<script src="/assets/js/main.js"></script>
+		{% endblock %}
+	</body>
+</html>

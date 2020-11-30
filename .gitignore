@@ -7,6 +7,8 @@ template/default/cache
 avatar/avatars
 avatar/tmp
 node_modules/
+vendor/
+cache/
 template/default/cache
 
 # local env files

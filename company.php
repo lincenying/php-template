@@ -10,24 +10,7 @@ $twig = new \Twig\Environment($loader, [
     'debug' => true,
 ]);
 
-$id = isset($id) ? intval($id) : '';
-if (empty($id)) {
-    exit('参数错误');
-}
-
-// 详情数据
-$params = [$id];
-$sql = 'SELECT * FROM cyxw_archive where c_id = ?';
-$memcache_key = getSqlMd5($sql, $params);
-$row = [];
-if ($onmemcache == false || !($row = $memcache->get($memcache_key))) {
-    $row = $db->row($sql, $params);
-    $onmemcache && $memcache->set($memcache_key, $row, 0, 86400);
-}
-
-$ubb = new Ubb();
-$ubb->setString($row['c_content']);
-$row['c_content'] = $ubb->parse();
+$post = $_POST;
 
 $seo = [
     'title' => $row['c_title'],
@@ -35,10 +18,9 @@ $seo = [
     'desc' => $row['c_title'],
 ];
 
-echo $twig->render('detail.twig', [
+echo $twig->render('company.twig', [
     'global' => $global,
     'seo' => $seo,
-    'row' => $row,
 ]);
 
 $db->CloseConnection();

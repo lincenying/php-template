@@ -1,7 +1,14 @@
 <?php
 include 'inc/conn.php';
 include cyRoom_ROOT . 'inc/func.page.php';
-include cyRoom_ROOT . 'inc/func.template.php';
+require cyRoom_ROOT . 'vendor/autoload.php';
+
+$loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/twig');
+$twig = new \Twig\Environment($loader, [
+    'cache' => __DIR__ . '/cache',
+    'auto_reload' => true, //根据文件更新时间，自动更新缓存
+    'debug' => true,
+]);
 
 $page = isset($page) ? intval($page) : 1;
 $prevPage = $page - 1;
@@ -39,11 +46,13 @@ $seo = [
     'keyword' => '首页',
     'desc' => '首页',
 ];
-$Template = new Template($templateDir, $isRewrite);
-include Template::showTemplate('index');
-$output = ob_get_contents();
-ob_end_clean();
-echo $output;
+echo $twig->render('home.twig', [
+    'global' => $global,
+    'seo' => $seo,
+    'total' => $total,
+    'list' => $list,
+    'pages' => $pages,
+]);
 $db->CloseConnection();
 if ($onmemcache && $memcache) {
     $memcache->close();
