@@ -28,9 +28,13 @@ if ($action === 'upload') {
     $upload = new upload($config);
     $data = $upload->upMore();
     $return = [];
-    $return['code'] = 200;
     $return['action'] = $action;
     $return['data'] = $data;
+    if ($data->err_msg === '') {
+        $return['code'] = 200;
+    } else {
+        $return['code'] = 300;
+    }
     $jsonStr = json_encode($return, JSON_UNESCAPED_UNICODE);
     echo $jsonStr;
 } elseif ($action === 'article-list') {

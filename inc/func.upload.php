@@ -6,7 +6,7 @@ class upload
     private $fileNum = 0; //上传文件数量
     private $filePath = ''; //附件上传路径
     private $fileText = ''; //附件说明
-    private $attaMaxSize = 512000; //附件大小限制
+    private $attaMaxSize = 1024000; //附件大小限制
     private $nowDate = '';
     //E=================图片上传参数===================
     //S=================水印/缩略图参数================
@@ -494,7 +494,15 @@ class upload
                             'oldurl' => $thisFiles['name'],
                         ];
                     }
+                } else {
+                    $arr_return = [
+                        'err_msg' => '文件上传失败',
+                    ];
                 } // end if
+            } else {
+                $arr_return = [
+                    'err_msg' => '文件大小超出限制(' . $this->attaMaxSize . '字节)',
+                ];
             } // end if
         } else {
             $i = 0;
@@ -545,18 +553,19 @@ class upload
                             ];
                             $tmpFileText = '';
                         } else {
-                            $arr_return = [
+                            $arr_return[] = [
                                 'err_msg' => '文件上传失败',
-                                'imgurl' => $fileNewName,
-                                'smallurl' => '',
-                                'markurl' => '',
-                                'resizeimg' => '',
-                                'fileText' => '',
-                                'filepath' => '',
-                                'oldurl' => $thisFiles['name'],
                             ];
                         }
+                    } else {
+                        $arr_return[] = [
+                            'err_msg' => '文件上传失败',
+                        ];
                     } // end if
+                } else {
+                    $arr_return[] = [
+                        'err_msg' => '文件大小超出限制(' . $this->attaMaxSize . '字节)',
+                    ];
                 } // end if
                 $i++;
             } // end while
@@ -592,4 +601,5 @@ class upload
             return $return;
         }
     }
-} ?>
+}
+?>
