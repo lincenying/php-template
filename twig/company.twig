@@ -1,6 +1,7 @@
 {% extends 'with_sidebar.twig' %}
 
 {% block sidebar %}
+    {# parent() 可以返回父级模板里对应块的默认内容 #}
     {{ parent() }}
     <h2>Yep !</h2>
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aliquid at dolores eaque hic, illo incidunt iste itaque molestiae qui.</p>

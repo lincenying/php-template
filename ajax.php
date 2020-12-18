@@ -1,8 +1,11 @@
 <?php
+$origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '';
 header('Cache-Control: no-cache, must-revalidate');
 header('Pragma: no-cache');
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *');
+if (strpos($origin, 'mmxiaowu.com') !== false) {
+    header('Access-Control-Allow-Origin: ' . $origin);
+}
 header('Access-Control-Allow-Methods:POST,GET');
 // 带 cookie 的跨域访问
 header('Access-Control-Allow-Credentials: true');
