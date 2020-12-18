@@ -30,7 +30,7 @@ if ($action === 'upload') {
     $return = [];
     $return['action'] = $action;
     $return['data'] = $data;
-    if ($data->err_msg === '') {
+    if ($data['err_msg'] === '') {
         $return['code'] = 200;
     } else {
         $return['code'] = 300;
