@@ -9,6 +9,9 @@ $twig = new \Twig\Environment($loader, [
     'auto_reload' => true, //根据文件更新时间，自动更新缓存
     'debug' => true,
 ]);
+$twigFile = 'home.twig';
+
+// 业务代码开始 ======>
 
 $page = isset($page) ? intval($page) : 1;
 $prevPage = $page - 1;
@@ -46,13 +49,18 @@ $seo = [
     'keyword' => '首页',
     'desc' => '首页',
 ];
-echo $twig->render('home.twig', [
+
+$twigData = [
     'global' => $global,
     'seo' => $seo,
     'total' => $total,
     'list' => $list,
     'pages' => $pages,
-]);
+];
+
+// <=========== 业务代码结束
+
+echo $twig->render($twigFile, $twigData);
 $db->CloseConnection();
 if ($onmemcache && $memcache) {
     $memcache->close();

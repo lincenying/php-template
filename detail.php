@@ -9,6 +9,9 @@ $twig = new \Twig\Environment($loader, [
     'auto_reload' => true, //根据文件更新时间，自动更新缓存
     'debug' => true,
 ]);
+$twigFile = 'detail.twig';
+
+// 业务代码开始 ======>
 
 $id = isset($id) ? intval($id) : '';
 if (empty($id)) {
@@ -35,11 +38,15 @@ $seo = [
     'desc' => $row['c_title'],
 ];
 
-echo $twig->render('detail.twig', [
+$twigData = [
     'global' => $global,
     'seo' => $seo,
     'row' => $row,
-]);
+];
+
+// <=========== 业务代码结束
+
+echo $twig->render($twigFile, $twigData);
 
 $db->CloseConnection();
 if ($onmemcache && $memcache) {
