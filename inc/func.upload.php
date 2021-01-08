@@ -428,8 +428,8 @@ class upload
 
     private function createDir($dir)
     {
-        if (!is_dir(cyRoom_ROOT . $dir)) {
-            @mkdir(cyRoom_ROOT . $dir);
+        if (!is_dir(LCY_ROOT . $dir)) {
+            @mkdir(LCY_ROOT . $dir);
         }
     }
 

@@ -754,7 +754,7 @@ class message
 {
     public function showErr($str, $url = 'javascript:history.go(-1);', $sec = '5')
     {
-        $html = file_get_contents(cyRoom_ROOT . 'member/msg.html');
+        $html = file_get_contents(LCY_ROOT . 'member/msg.html');
         $str = empty($str) ? '您所请求的页面地址不存在!' : $str;
         $html = str_replace('{str}', $str, $html);
         $html = str_replace('{url}', $url, $html);
@@ -764,7 +764,7 @@ class message
     }
     public function show404($str = '')
     {
-        $html = file_get_contents(cyRoom_ROOT . 'member/404.html');
+        $html = file_get_contents(LCY_ROOT . 'member/404.html');
         $str = empty($str) ? '您所请求的页面地址不存在!' : $str;
         $html = str_replace('{str}', $str, $html);
         echo $html;

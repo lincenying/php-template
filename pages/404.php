@@ -1,24 +1,20 @@
 <?php
-include 'inc/conn.php';
-include cyRoom_ROOT . 'inc/func.ubb.php';
-require cyRoom_ROOT . 'vendor/autoload.php';
+require LCY_ROOT . 'vendor/autoload.php';
 
-$loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/twig');
+$loader = new \Twig\Loader\FilesystemLoader(LCY_ROOT . 'twig');
 $twig = new \Twig\Environment($loader, [
-    'cache' => __DIR__ . '/cache',
+    'cache' => LCY_ROOT . 'cache',
     'auto_reload' => true, //根据文件更新时间，自动更新缓存
     'debug' => true,
 ]);
-$twigFile = 'company.twig';
+$twigFile = '404.twig';
 
 // 业务代码开始 ======>
 
-$post = $_POST;
-
 $seo = [
-    'title' => $row['c_title'],
-    'keyword' => $row['c_title'],
-    'desc' => $row['c_title'],
+    'title' => '404 page not found',
+    'keyword' => '404 page not found',
+    'desc' => '404 page not found',
 ];
 
 $twigData = [

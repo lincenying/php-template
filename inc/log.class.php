@@ -8,7 +8,7 @@
 class Log
 {
     # @string, Log directory name
-    private $path = cyRoom_ROOT . 'logs/';
+    private $path = LCY_ROOT . 'logs/';
 
     # @void, Default Constructor, Sets the timezone and path of the log files.
     public function __construct()

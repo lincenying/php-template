@@ -8,11 +8,11 @@ session_cache_limiter('private, must-revalidate');
 @ini_set('session.bug_compat_warn', 0);
 @ini_set('session.bug_compat_42', 0);
 
-define('cyRoom_ROOT', substr(dirname(__FILE__), 0, -3));
+define('LCY_ROOT', substr(dirname(__FILE__), 0, -3));
 
-require cyRoom_ROOT . 'inc/config.php';
-require cyRoom_ROOT . 'inc/db.class.php';
-require cyRoom_ROOT . 'inc/function.php';
+require LCY_ROOT . 'inc/config.php';
+require LCY_ROOT . 'inc/db.class.php';
+require LCY_ROOT . 'inc/function.php';
 $db = new Db();
 
 if ($onmemcache) {

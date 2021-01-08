@@ -52,7 +52,7 @@ class Template
         $tpl = Template::$sTemplateDir . '/' . Template::$sSelectTemplatePath . '/' . $name;
         $objfile = Template::$sTemplateDir . '/' . Template::$sSelectTemplatePath . '/cache/' . str_replace('/', '_', $tpl) . '.php';
         $needParse = false;
-        if (!file_exists(cyRoom_ROOT . $objfile)) {
+        if (!file_exists(LCY_ROOT . $objfile)) {
             $needParse = true;
         } else {
             $r = Template::readContents($objfile);
@@ -61,7 +61,7 @@ class Template
             }
         }
         if ($needParse) {
-            include_once cyRoom_ROOT . 'inc/func.template.php';
+            include_once LCY_ROOT . 'inc/func.template.php';
             Template::parse_template($tpl);
         }
         return $objfile;
@@ -82,7 +82,7 @@ class Template
             foreach ($subfiles as $subfile) {
                 @$submktime = filemtime($subfile . '.html');
                 if ($submktime > $tpltime) {
-                    include_once cyRoom_ROOT . 'inc/func.template.php';
+                    include_once LCY_ROOT . 'inc/func.template.php';
                     Template::parse_template($tpl);
                     break;
                 }
