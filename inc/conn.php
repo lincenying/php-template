@@ -17,13 +17,13 @@ $db = new Db();
 
 if ($onmemcache) {
     $memcache = new Memcache();
-    $memcache->connect('127.0.0.1', 11211) or die('Could not connect');
+    $memcache->connect('127.0.0.1', 11211) or die('MemCache Could not connect');
 }
 
 $global = [];
-$global['cachetime'] = 900; //缓存时间
-$global['clientip'] = GetIP();
-$global['clientagent'] = $_SERVER['HTTP_USER_AGENT'];
+$global['cacheTime'] = 900; //缓存时间
+$global['clientIp'] = GetIP();
+$global['clientAgent'] = $_SERVER['HTTP_USER_AGENT'];
 $global['script'] = str_replace(['/', '.php', 'php'], '', $_SERVER['SCRIPT_NAME']);
-$global['ajaxfile'] = ['ajax'];
+$global['ajaxFile'] = ['ajax'];
 ?>

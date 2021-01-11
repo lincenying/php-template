@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@prettier/plugin-php@^0.16.0":
-  version "0.16.0"
-  resolved "https://registry.npm.taobao.org/@prettier/plugin-php/download/@prettier/plugin-php-0.16.0.tgz#db6d0b363bf8326eb2175f151b6fed35cda6354d"
-  integrity sha1-220LNjv4Mm6yF18VG2/tNc2mNU0=
+"@prettier/plugin-php@^0.16.1":
+  version "0.16.1"
+  resolved "https://registry.npm.taobao.org/@prettier/plugin-php/download/@prettier/plugin-php-0.16.1.tgz#0255749fe1a36c00c7ddc049ec8dc2928a8ac512"
+  integrity sha1-AlV0n+GjbADH3cBJ7I3CkoqKxRI=
   dependencies:
     linguist-languages "^7.5.1"
     mem "^8.0.0"

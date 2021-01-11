@@ -250,6 +250,8 @@ function getIP()
         $ip = getenv('REMOTE_ADDR');
     } elseif (isset($_SERVER['REMOTE_ADDR']) && $_SERVER['REMOTE_ADDR'] && strcasecmp($_SERVER['REMOTE_ADDR'], 'unknown')) {
         $ip = $_SERVER['REMOTE_ADDR'];
+    } elseif (isset($_SERVER['X-Real-IP']) && $_SERVER['X-Real-IP'] && strcasecmp($_SERVER['X-Real-IP'], 'unknown')) {
+        $ip = $_SERVER['X-Real-IP'];
     } else {
         $ip = '0.0.0.0';
     }
@@ -301,7 +303,7 @@ function getMicrotime()
 /**
  * 获取月份的天数
  */
-function getMonthday($month, $year)
+function getMonthDay($month, $year)
 {
     switch ($month) {
         case 2:
@@ -430,13 +432,13 @@ function getTimeAgo($the_time)
  */
 function dateAdd($unit = 'd', $int, $date)
 {
-    $date_time_array = getdate(strtotime($date));
-    $hours = $date_time_array['hours'];
-    $minutes = $date_time_array['minutes'];
-    $seconds = $date_time_array['seconds'];
-    $month = $date_time_array['mon'];
-    $day = $date_time_array['mday'];
-    $year = $date_time_array['year'];
+    $dateTimeArray = getdate(strtotime($date));
+    $hours = $dateTimeArray['hours'];
+    $minutes = $dateTimeArray['minutes'];
+    $seconds = $dateTimeArray['seconds'];
+    $month = $dateTimeArray['mon'];
+    $day = $dateTimeArray['mday'];
+    $year = $dateTimeArray['year'];
     switch ($unit) {
         case 'yyyy':
             $year += $int;
