@@ -13,9 +13,9 @@ $twigFile = 'home.twig';
 // 业务代码开始 ======>
 
 $page = isset($page) ? intval($page) : 1;
+$perPage = isset($perPage) ? intval($perPage) : 10;
 $prevPage = $page - 1;
 $nextPage = $page + 1;
-$perPage = 10;
 
 // 统计数量
 $countSql = 'select count(*) as num from cyxw_archive';
