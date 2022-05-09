@@ -24,9 +24,6 @@ $ajaxpage=new page(array('total'=>1000,'perpage'=>20,'ajax'=>'ajax_page','page_n
 
 echo 'mode:1<br>'.$ajaxpage->show();
 
-采用继承自定义分页显示模式：
-
-demo:http://www.phpobject.net/blog
 
  */
 
@@ -34,9 +31,9 @@ class page
 {
     /**
 
- * config ,public
+     * config ,public
 
- */
+     */
 
     public $rewrite = true;
     public $page_name = 'page'; //page标签，用来控制url页。比如说xxx.php?PB_page=2中的PB_page
@@ -60,24 +57,10 @@ class page
     public $url = ''; //url地址头
     public $offset = 0;
     public $pattern = [
-        '/_([a-zA-Z0-9]+)\.php\?page=([\d]+)(\'|\")/is',
-        '/_([a-zA-Z0-9]+)\.php\?cate=([\d]+)&page=([\d]+)(\'|\")/is',
-        '/_reward\.php\?type=(.*?)&page=([\d]+)(\'|\")/is',
         '/index\.php\?page=([\d]+)(\'|\")/is',
-        '/index\.php\?search=(.*?)&page=([\d]+)(\'|\")/is',
-        '/index\.php\?cate=(.*?)&page=([\d]+)(\'|\")/is',
-        '/_muser\.php\?uid=([\d]+)&page=([\d]+)(\'|\")/is',
-        '/_muser\.php\?uid=([\d]+)&action=(.*?)&page=([\d]+)(\'|\")/is',
     ];
     public $replace = [
-        '\\1/page/\\2\\3',
-        '\\1/\\2/page/\\3\\4',
-        'reward/\\1/page/\\2\\3',
         'page/\\1\\2',
-        'search/\\1/page/\\2\\3',
-        'catetory/\\1/page/\\2\\3',
-        'uid\\1/page/\\2\\3',
-        'uid\\1/\\2/page/\\3\\4',
     ];
     /**
      * constructor构造函数
@@ -85,7 +68,7 @@ class page
      * @param array $array['total'],$array['perpage'],$array['nowindex'],$array['url'],$array['ajax']...
      */
 
-    function __construct($array)
+    public function __construct($array)
     {
         if (is_array($array)) {
             if (!array_key_exists('total', $array)) {
@@ -291,12 +274,12 @@ class page
                 $this->next_page = '<span class="icon-triangle-4"></span>';
                 $this->last_page = '<span class="icon-fast-forward"></span>';
                 $return =
-                    $this->page_bar('page') .
-                    $this->first_page('') .
-                    $this->pre_page('') .
-                    $this->nowbar('', 'active') .
-                    $this->next_page('') .
-                    $this->last_page('');
+                $this->page_bar('page') .
+                $this->first_page('') .
+                $this->pre_page('') .
+                $this->nowbar('', 'active') .
+                $this->next_page('') .
+                $this->last_page('');
                 break;
             case '2':
                 $this->first_page = '<span class="icon-fast-backward"></span>';
@@ -443,11 +426,11 @@ class page
         if ($this->is_ajax) {
             //如果是使用AJAX模式
             return '<a ' .
-                $style .
-                ' href="' .
-                $url .
-                '" onclick="javascript:' .
-                $this->ajax_action_name .
+            $style .
+            ' href="' .
+            $url .
+            '" onclick="javascript:' .
+            $this->ajax_action_name .
                 '(\'' .
                 $url .
                 '\');return false;" title="">' .

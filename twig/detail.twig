@@ -4,9 +4,7 @@
     <div class="detail">
         <h4>{{ row.c_title }}</h4>
         <div class="cotnent">
-            {% autoescape false %}
-                {{ row.c_content }}
-            {% endautoescape %}
+                {{ row.c_content|raw }}
         </div>
     </div>
 {% endblock %}

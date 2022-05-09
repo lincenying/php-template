@@ -11,8 +11,11 @@
 			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
 			<link rel="stylesheet" type="text/css" href="/assets/css/style.css">
 		{% endblock %}
+        <script>
+            window.$$global = {{ global|json_encode|raw }}
+        </script>
 	</head>
-	<body data-config='{"page":"{{ global.script }}"}'>
+	<body data-config='{{ global|json_encode|raw }}'>
 		<div class="container">
 			<div class="nav">
 				<a href="./">列表</a>

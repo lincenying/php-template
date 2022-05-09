@@ -26,4 +26,3 @@ $global['clientIp'] = GetIP();
 $global['clientAgent'] = $_SERVER['HTTP_USER_AGENT'];
 $global['script'] = str_replace(['/', '.php', 'php'], '', $_SERVER['SCRIPT_NAME']);
 $global['ajaxFile'] = ['ajax'];
-?>

@@ -9,21 +9,21 @@ class ubb
      ** $allowImgCode 是否开启图片
      ** $allowMediaCode 是否开启媒体
      */
-    var $message = '';
-    var $parseType = 0;
-    var $bbCodeOff = 0;
-    var $allowBbCode = 1;
-    var $allowImgCode = 1;
-    var $allowMediaCode = 1;
-    var $autoLink = 1;
-    var $isRss = false;
+    public $message = '';
+    public $parseType = 0;
+    public $bbCodeOff = 0;
+    public $allowBbCode = 1;
+    public $allowImgCode = 1;
+    public $allowMediaCode = 1;
+    public $autoLink = 0;
+    public $isRss = false;
 
-    function setString($str)
+    public function setString($str)
     {
         $this->message = $str;
     }
 
-    function parse()
+    public function parse()
     {
         $message = $this->message;
         $message = str_replace('[/url][url', "[/url]\r\n[url", $message);
@@ -172,8 +172,8 @@ function bbCodeUrl1($m)
                 '" class="ubbimg jqimg" alt="" /></a></div>';
         } else {
             $tag =
-                '<div class="p_ubbimg"><a href="' .
-                str_replace('/700', '', $url) .
+            '<div class="p_ubbimg"><a href="' .
+            str_replace('/700', '', $url) .
                 '" class="lightbox" rel="lightbox" target="_blank"><img style="max-width:100%;"
             src="http://ww3.sinaimg.cn/bmiddle/9ca59837gw1dqtgr6b2t7g.gif" class="ubbimg jqimg" url="' .
                 $url .
@@ -325,11 +325,11 @@ function parseTrTd($m)
     return ($bgcolor == 'td' ? '</td>' : '<tr' . ($bgcolor ? ' bgcolor="' . $bgcolor . '"' : '') . '>') .
         '<td' .
         ($colspan > 1
-            ? '
+        ? '
             colspan="' .
-                $colspan .
-                '"'
-            : '') .
+        $colspan .
+        '"'
+        : '') .
         ($rowspan > 1 ? ' rowspan="' . $rowspan . '"' : '') .
         ($width ? ' width="' . $width . '"' : '') .
         '>';
@@ -404,5 +404,3 @@ function autoAddLink($message)
     );
     return $message;
 }
-
-?>
