@@ -20,11 +20,11 @@ if (empty($id)) {
 // 详情数据
 $params = [$id];
 $sql = 'SELECT * FROM cyxw_archive where c_id = ?';
-$memcache_key = getSqlMd5($sql, $params);
+$memCacheKey = getSqlMd5($sql, $params);
 $row = [];
-if ($onmemcache == false || !($row = $memcache->get($memcache_key))) {
+if ($onMemCache == false || !($row = $memCache->get($memCacheKey))) {
     $row = $db->row($sql, $params);
-    $onmemcache && $memcache->set($memcache_key, $row, 0, 86400);
+    $onMemCache && $memCache->set($memCacheKey, $row, 0, 86400);
 }
 
 $ubb = new Ubb();
@@ -48,8 +48,8 @@ $twigData = [
 echo $twig->render($twigFile, $twigData);
 
 $db->CloseConnection();
-if ($onmemcache && $memcache) {
-    $memcache->close();
+if ($onMemCache && $memCache) {
+    $memCache->close();
 }
 
 exit();

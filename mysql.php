@@ -15,12 +15,12 @@ echo $get2;
 print_r($_GET);
 
 $sql = 'SELECT * FROM cyxw_cash';
-$memcache_key = getSqlMd5($sql, []);
+$memCacheKey = getSqlMd5($sql, []);
 $person = [];
-if ($onmemcache == false || !($person = $memcache->get($memcache_key))) {
+if ($onMemCache == false || !($person = $memCache->get($memCacheKey))) {
     $person = $db->query($sql);
-    echo '$memcache_key 未命中缓存';
-    $onmemcache && $memcache->set($memcache_key, $person, 0, 86400);
+    echo '$memCacheKey 未命中缓存';
+    $onMemCache && $memCache->set($memCacheKey, $person, 0, 86400);
 }
 dd($person, "query('SELECT * FROM cyxw_cash')");
 
@@ -73,4 +73,3 @@ $delete = $db->query('DELETE FROM cyxw_cash WHERE c_id = :id', ['id' => '4']);
 dd($delete, "query('DELETE FROM cyxw_cash WHERE c_id = :id', ['id' => '4'])");
 
 phpinfo();
-?>

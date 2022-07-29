@@ -9,10 +9,10 @@ try {
     // 统计数量
     $countSql = 'select count(*) as num from cyxw_archive';
     $total = 0;
-    $memcache_key_total = getSqlMd5($countSql, []);
-    if ($onmemcache == false || !($total = $memcache->get($memcache_key_total))) {
+    $totalMemCacheKey = getSqlMd5($countSql, []);
+    if ($onMemCache == false || !($total = $memCache->get($totalMemCacheKey))) {
         $total = $db->single($countSql);
-        $onmemcache && $memcache->set($memcache_key_total, $total, 0, 86400);
+        $onMemCache && $memCache->set($totalMemCacheKey, $total, 0, 86400);
     }
 
     // 列表数据
@@ -21,11 +21,11 @@ try {
     $limit = ' limit ' . $limitLeft . ', ' . $perPage;
     $params = [];
     $sql = 'SELECT * FROM cyxw_archive' . $order . $limit;
-    $memcache_key = getSqlMd5($sql, $params);
+    $memCacheKey = getSqlMd5($sql, $params);
     $list = [];
-    if ($onmemcache == false || !($list = $memcache->get($memcache_key))) {
+    if ($onMemCache == false || !($list = $memCache->get($memCacheKey))) {
         $list = $db->query($sql, $params);
-        $onmemcache && $memcache->set($memcache_key, $list, 0, 86400);
+        $onMemCache && $memCache->set($memCacheKey, $list, 0, 86400);
     }
     $return['code'] = 200;
     $return['action'] = $action;
@@ -43,4 +43,3 @@ try {
 
 $jsonStr = json_encode($return, JSON_UNESCAPED_UNICODE);
 echo $jsonStr;
-?>

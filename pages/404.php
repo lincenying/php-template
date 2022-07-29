@@ -26,8 +26,8 @@ $twigData = [
 
 echo $twig->render($twigFile, $twigData);
 $db->CloseConnection();
-if ($onmemcache && $memcache) {
-    $memcache->close();
+if ($onMemCache && $memCache) {
+    $memCache->close();
 }
 
 exit();

@@ -15,9 +15,9 @@ require LCY_ROOT . 'inc/db.class.php';
 require LCY_ROOT . 'inc/function.php';
 $db = new Db();
 
-if ($onmemcache) {
-    $memcache = new Memcache();
-    $memcache->connect('127.0.0.1', 11211) or die('MemCache Could not connect');
+if ($onMemCache) {
+    $memCache = new Memcache();
+    $memCache->connect('127.0.0.1', 11211) or die('MemCache Could not connect');
 }
 
 $global = [];

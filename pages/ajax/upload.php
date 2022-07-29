@@ -1,23 +1,35 @@
 <?php
 require LCY_ROOT . 'inc/func.upload.php';
 
-$config = [
-    'files' => $_FILES['file'],
-    'isSmall' => 0,
-    'isMark' => 0,
-    'waterText' => 'test',
-    'isResize' => 0,
-];
-$upload = new upload($config);
-$data = $upload->upMore();
-$return = [];
-$return['action'] = $action;
-$return['data'] = $data;
-if ($data['err_msg'] === '') {
-    $return['code'] = 200;
-} else {
+try {
+    if (empty($_FILES['file'])) {
+        throw new Exception('文件不能为空');
+    }
+    $config = [
+        'files' => $_FILES['file'],
+        'isSmall' => 0,
+        'isMark' => 0,
+        'waterText' => 'test',
+        'isResize' => 0,
+        'filepath' => '',
+    ];
+    $upload = new upload($config);
+    $data = $upload->upMore();
+    $return = [];
+    $return['action'] = $action;
+    $return['data'] = $data;
+    if ($data['err_msg'] === '') {
+        $return['code'] = 200;
+        $return['data'] = $row;
+    } else {
+        throw new Exception($data['err_msg']);
+    }
+
+} catch (Exception $e) {
     $return['code'] = 300;
+    $return['data'] = null;
+    $return['msg'] = $e->getMessage();
 }
+
 $jsonStr = json_encode($return, JSON_UNESCAPED_UNICODE);
 echo $jsonStr;
-?>

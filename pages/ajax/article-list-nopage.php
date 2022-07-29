@@ -10,11 +10,11 @@ try {
     $limit = ' limit ' . $limitLeft . ', ' . $perPage;
     $params = [];
     $sql = 'SELECT * FROM cyxw_archive' . $order . $limit;
-    $memcache_key = getSqlMd5($sql, $params);
+    $memCacheKey = getSqlMd5($sql, $params);
     $list = [];
-    if ($onmemcache == false || !($list = $memcache->get($memcache_key))) {
+    if ($onMemCache == false || !($list = $memCache->get($memCacheKey))) {
         $list = $db->query($sql, $params);
-        $onmemcache && $memcache->set($memcache_key, $list, 0, 86400);
+        $onMemCache && $memCache->set($memCacheKey, $list, 0, 86400);
     }
     $return['code'] = 200;
     $return['action'] = $action;
@@ -27,4 +27,3 @@ try {
 
 $jsonStr = json_encode($return, JSON_UNESCAPED_UNICODE);
 echo $jsonStr;
-?>

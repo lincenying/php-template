@@ -14,10 +14,10 @@ try {
     // 详情数据
     $params = [$id];
     $sql = 'SELECT * FROM cyxw_archive where c_id = ?';
-    $memcache_key = getSqlMd5($sql, $params);
-    if ($onmemcache == false || !($row = $memcache->get($memcache_key))) {
+    $memCacheKey = getSqlMd5($sql, $params);
+    if ($onMemCache == false || !($row = $memCache->get($memCacheKey))) {
         $row = $db->row($sql, $params);
-        $onmemcache && $memcache->set($memcache_key, $row, 0, 86400);
+        $onMemCache && $memCache->set($memCacheKey, $row, 0, 86400);
     }
     if (empty($row)) {
         throw new Exception('没有找到该文章');
@@ -37,4 +37,3 @@ try {
 
 $jsonStr = json_encode($return, JSON_UNESCAPED_UNICODE);
 echo $jsonStr;
-?>
