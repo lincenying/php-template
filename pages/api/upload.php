@@ -18,7 +18,6 @@ try {
     $return = [];
     if ($data['err_msg'] === '') {
         $return['code'] = 200;
-        $return['action'] = $action;
         $return['data'] = $data;
     } else {
         throw new Exception($data['err_msg']);

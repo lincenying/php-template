@@ -12,9 +12,9 @@ $twigFile = '404.twig';
 // 业务代码开始 ======>
 
 $seo = [
-    'title' => '404 page not found',
-    'keyword' => '404 page not found',
-    'desc' => '404 page not found',
+    'title' => '404 Page Not Found',
+    'keyword' => '404 Page Not Found',
+    'desc' => '404 Page Not Found',
 ];
 
 $twigData = [

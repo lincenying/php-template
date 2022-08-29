@@ -17,7 +17,6 @@ try {
         $onMemCache && $memCache->set($memCacheKey, $list, 0, 86400);
     }
     $return['code'] = 200;
-    $return['action'] = $action;
     $return['data'] = $list;
 } catch (Exception $e) {
     $return['code'] = 300;

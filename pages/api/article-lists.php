@@ -28,7 +28,6 @@ try {
         $onMemCache && $memCache->set($memCacheKey, $list, 0, 86400);
     }
     $return['code'] = 200;
-    $return['action'] = $action;
     $return['data'] = [];
     $return['data']['total'] = $total;
     $return['data']['per_page'] = $perPage;

@@ -1,0 +1,13 @@
+{
+    "extends": ["lcy-vue"],
+    "globals": {
+        "echarts": true,
+        "$": true
+    },
+    "rules": {
+        "no-inline-comments": 0,
+        "no-irregular-whitespace": 0,
+        "no-unused-expressions": 0,
+        "vue/multi-word-component-names": 0
+    }
+}

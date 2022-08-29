@@ -11,19 +11,17 @@ $twigFile = 'contact.twig';
 
 // 业务代码开始 ======>
 
-$post = $_POST;
-
 $seo = [
-    'title' => $row['c_title'],
-    'keyword' => $row['c_title'],
-    'desc' => $row['c_title'],
+    'title' => 'Contact',
+    'keyword' => 'Contact',
+    'desc' => 'Contact',
 ];
 
 $twigData = [
     'global' => $global,
     'seo' => $seo,
     'action' => $action,
-    'post' => $post,
+    'post' => $_POST,
 ];
 
 // <=========== 业务代码结束

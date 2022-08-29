@@ -14,9 +14,9 @@ $twigFile = 'company.twig';
 $post = $_POST;
 
 $seo = [
-    'title' => $row['c_title'],
-    'keyword' => $row['c_title'],
-    'desc' => $row['c_title'],
+    'title' => 'Company',
+    'keyword' => 'Company',
+    'desc' => 'Company',
 ];
 
 $twigData = [

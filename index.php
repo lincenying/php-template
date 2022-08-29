@@ -21,17 +21,19 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) 
     $r->addRoute('GET', '/', 'index');
     $r->addRoute('GET', '/other', '404');
     $r->addRoute('GET', '/contact', 'contact');
+    $r->addRoute('POST', '/contact/submit', 'contact');
     $r->addRoute('GET', '/company', 'company');
     $r->addRoute('GET', '/detail/{id:\d+}', 'detail');
     // 分组
     $r->addGroup('/api', function (FastRoute\RouteCollector $r) {
         // {id} must be a number (\d+)
-        $r->addRoute('GET', '/other', 'ajax/other');
-        $r->addRoute('POST', '/upload', 'ajax/upload');
-        $r->addRoute('POST', '/qiniu', 'ajax/qiniu');
-        $r->addRoute('GET', '/article/lists', 'ajax/article-lists');
-        $r->addRoute('GET', '/article/list', 'ajax/article-list');
-        $r->addRoute('GET', '/article/detail/{id:\d+}', 'ajax/article-detail');
+        $r->addRoute('POST', '/contact', 'api/contact');
+        $r->addRoute('GET', '/other', 'api/other');
+        $r->addRoute('POST', '/upload', 'api/upload');
+        $r->addRoute('POST', '/qiniu', 'api/qiniu');
+        $r->addRoute('GET', '/article/list', 'api/article-list');
+        $r->addRoute('GET', '/article/lists', 'api/article-lists');
+        $r->addRoute('GET', '/article/detail/{id:\d+}', 'api/article-detail');
         // The /{title} suffix is optional
         // $r->addRoute('GET', '/articles/{id:\d+}[/{title}]', 'get_article_handler');
         // $r->addRoute('GET', '/users', 'get_all_users_handler');

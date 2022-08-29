@@ -15,8 +15,8 @@ header('Access-Control-Allow-Headers:X-Requested-With,Content-Type,X-CSRF-Token,
 include 'inc/conn.php';
 
 $action = isset($action) ? $action : 'other';
-$file = 'pages/ajax/' . $action . '.php';
+$file = 'pages/api/' . $action . '.php';
 if (!file_exists($file)) {
-    $file = 'pages/ajax/other.php';
+    $file = 'pages/api/other.php';
 }
 include $file;

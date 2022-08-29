@@ -1,0 +1,8 @@
+build/*.js
+config/*.js
+public/static/**/*.js
+public/assets/**/*.js
+dist/**/*.js
+dist/**/*.css
+src/components/carousel-3d/*
+src/assets/iconfont/iconfont.js
