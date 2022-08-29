@@ -12,7 +12,7 @@ $twigFile = 'detail.twig';
 
 // 业务代码开始 ======>
 
-$id = isset($id) ? intval($id) : '';
+$id = isset($id) ? intval($id) : $routeVars['id'];
 if (empty($id)) {
     exit('参数错误');
 }

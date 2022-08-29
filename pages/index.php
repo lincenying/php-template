@@ -27,7 +27,7 @@ if ($onMemCache == false || !($total = $memCache->get($totalMemCacheKey))) {
 }
 
 // 分页设置
-$classPage = new page(['total' => $total, 'nowindex' => $page, 'perpage' => $perPage, 'pagename' => 'page', 'url' => '', 'rewrite' => false]);
+$classPage = new page(['total' => $total, 'nowindex' => $page, 'perpage' => $perPage, 'pagename' => 'page', 'url' => '/?', 'rewrite' => false]);
 $limitLeft = $classPage->offset;
 $pages = $classPage->show(2);
 

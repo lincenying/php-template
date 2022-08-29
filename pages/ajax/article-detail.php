@@ -1,7 +1,7 @@
 <?php
 include LCY_ROOT . 'inc/func.ubb.php';
 
-$id = isset($id) ? intval($id) : '';
+$id = isset($id) ? intval($id) : $routeVars['id'];
 
 $return = [];
 $return['action'] = $action;
