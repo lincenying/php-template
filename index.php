@@ -61,13 +61,31 @@ $uri = rawurldecode($uri);
 
 $routeInfo = $dispatcher->dispatch($httpMethod, $uri);
 
+$isApi = substr($uri, 0, 5) === '/api/';
+
 switch ($routeInfo[0]) {
     case FastRoute\Dispatcher::NOT_FOUND:
-        echo '... 404 Not Found';
+        if ($isApi) {
+            $return = [];
+            $return['code'] = 400;
+            $return['data'] = null;
+            $jsonStr = json_encode($return, JSON_UNESCAPED_UNICODE);
+            echo $jsonStr;
+        } else {
+            echo '... 404 Not Found';
+        }
         break;
     case FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
         $allowedMethods = $routeInfo[1];
-        echo '... 405 Method Not Allowed';
+        if ($isApi) {
+            $return = [];
+            $return['code'] = 400;
+            $return['data'] = null;
+            $jsonStr = json_encode($return, JSON_UNESCAPED_UNICODE);
+            echo $jsonStr;
+        } else {
+            echo '... 405 Method Not Allowed';
+        }
         break;
     case FastRoute\Dispatcher::FOUND:
         $handler = $routeInfo[1];
