@@ -21,7 +21,7 @@ if (!function_exists('ereg')) {
 /*
  **判断邮箱地址**
  */
-function checkEmail($inAddress)
+function check_email($inAddress)
 {
     return ereg('^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+', $inAddress);
 }
@@ -29,7 +29,7 @@ function checkEmail($inAddress)
 /**
  * 判断是否为图片
  */
-function checkFileType($str)
+function check_file_type($str)
 {
     $tmpfiletype = false;
     $filetypes = 'jpg,gif,png,jpeg';
@@ -46,7 +46,7 @@ function checkFileType($str)
 /**
  * 判断来源是否是爬虫
  */
-function checkSpider()
+function check_spider()
 {
     $useragent = agent();
     if ($useragent['browser'] == 'Null' && $useragent['os'] == 'Null') {
@@ -63,7 +63,7 @@ function checkSpider()
 /**
  * 判断是否为空
  */
-function isEmpty($str)
+function _is_empty($str)
 {
     return !isset($str) ? true : ($str === 0 || $str === '0' || !empty($str) ? false : true);
 }
@@ -71,7 +71,7 @@ function isEmpty($str)
 /**
  * 判断是否为数字
  */
-function isInt($str)
+function _is_int($str)
 {
     return ereg('^[0-9]{0,}$', $str);
 }
@@ -79,7 +79,7 @@ function isInt($str)
 /**
  * 判断请求是否来自 pjax
  */
-function isPjax()
+function is_pjax()
 {
     return array_key_exists('HTTP_X_PJAX', $_SERVER) && $_SERVER['HTTP_X_PJAX'];
 }
@@ -89,7 +89,7 @@ function isPjax()
 /*
  ** 获取系统相关信息
  */
-function getAgent()
+function get_agent()
 {
     $visitor = [];
     $visitor['agent'] = $_SERVER['HTTP_USER_AGENT'];
@@ -140,7 +140,7 @@ function getAgent()
 /**
  * 用于把文件的内容读入到一个字符串中
  */
-function getContent($url, $method = 'GET', $header_array = [], $post = null, $proxy = '', $return = 'html')
+function get_content($url, $method = 'GET', $header_array = [], $post = null, $proxy = '', $return = 'html')
 {
     $context = [];
     $context['http']['timeout'] = 60;
@@ -169,7 +169,7 @@ function getContent($url, $method = 'GET', $header_array = [], $post = null, $pr
 /**
  * 返回两个日期之间的时间间隔
  */
-function getDateDiff($unit = '', $date1, $date2)
+function get_date_diff($unit = '', $date1, $date2)
 {
     switch ($unit) {
         case 's':
@@ -205,7 +205,7 @@ function getDateDiff($unit = '', $date1, $date2)
 /**
  * 获取文件扩展名
  */
-function getExtName($name)
+function get_ext_name($name)
 {
     if (strrpos($name, '.') == false) {
         return '';
@@ -217,7 +217,7 @@ function getExtName($name)
 /*
  ** 日期格式化函数
  */
-function getFixDate($format, $date = '')
+function get_fix_date($format, $date = '')
 {
     $fixtime = 86400;
     $tmpdate = $date == '' ? date($format, time() + $fixtime) : date($format, strtotime($date));
@@ -227,7 +227,7 @@ function getFixDate($format, $date = '')
 /**
  * 提取内容中的第一张图片地址
  */
-function getImgFromContent($content)
+function get_img_from_content($content)
 {
     if (preg_match_all('/<img.*?src=(.+?)(\s|>)/is', $content, $match)) {
         $match[1] = str_replace(["'", '"'], '', $match[1]);
@@ -240,7 +240,7 @@ function getImgFromContent($content)
 /*
  **获取客户端IP地址**
  */
-function getIP()
+function get_ip()
 {
     if (getenv('HTTP_CLIENT_IP') && strcasecmp(getenv('HTTP_CLIENT_IP'), 'unknown')) {
         $ip = getenv('HTTP_CLIENT_IP');
@@ -265,7 +265,7 @@ function getIP()
 /**
  * MD5加密
  */
-function getMd5($str, $type = 'encode')
+function get_md5($str, $type = 'encode')
 {
     $val = 'Q,W,E,R,T,Y,U,I,O,P,A,S,D,F,G,H,J,K,L,Z,X,C,V,B,N,M,1,2,3,4,5,6,7,8,9,0';
     $key = '0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z';
@@ -294,7 +294,7 @@ function getMd5($str, $type = 'encode')
 /**
  * 返回当前 Unix 时间戳的微秒数
  */
-function getMicrotime()
+function get_microtime()
 {
     [$usec, $sec] = explode(' ', microtime());
     return (float) $usec + (float) $sec;
@@ -303,7 +303,7 @@ function getMicrotime()
 /**
  * 获取月份的天数
  */
-function getMonthDay($month, $year)
+function get_month_day($month, $year)
 {
     switch ($month) {
         case 2:
@@ -328,7 +328,7 @@ function getMonthDay($month, $year)
 /**
  * 获取毫秒数
  */
-function getMs()
+function get_ms()
 {
     $time = explode(' ', microtime());
     $time = $time[1] . $time[0] * 1000;
@@ -340,7 +340,7 @@ function getMs()
 /**
  * 读取字符开始的位置
  */
-function getOfFirstIndex($str, $start)
+function get_of_first_index($str, $start)
 {
     $char_aci = ord(substr($str, $start - 1, 1));
     if (223 < $char_aci && $char_aci < 240) {
@@ -359,7 +359,7 @@ function getOfFirstIndex($str, $start)
  ** 随机产生字符串
  */
 
-function getRandomStr($length, $type)
+function get_random_str($length, $type)
 {
     switch ($type) {
         case 'A':
@@ -389,7 +389,7 @@ function getRandomStr($length, $type)
 /**
  * 将SQL语句用MD5加密, 用于memcache的key
  */
-function getSqlMd5($sql, $array)
+function get_sql_md5($sql, $array)
 {
     $tmpSql = $sql;
     $index = 0;
@@ -404,7 +404,7 @@ function getSqlMd5($sql, $array)
 /**
  * 返回几分钟前
  */
-function getTimeAgo($the_time)
+function get_time_ago($the_time)
 {
     $now_time = date('Y-m-d H:i:s');
     $now_time = strtotime($now_time);
@@ -430,7 +430,7 @@ function getTimeAgo($the_time)
 /**
  * 返回已添加指定时间间隔的日期
  */
-function dateAdd($unit = 'd', $int, $date)
+function _date_add($unit = 'd', $int, $date)
 {
     $dateTimeArray = getdate(strtotime($date));
     $hours = $dateTimeArray['hours'];
@@ -478,7 +478,7 @@ function dateAdd($unit = 'd', $int, $date)
 /**
  * 字符串反编码
  */
-function decodeHtml($fString)
+function decode_html($fString)
 {
     if ($fString != '') {
         $fString = str_replace('&lt;br /&gt;', chr(10) & chr(10), $fString);
@@ -495,7 +495,7 @@ function decodeHtml($fString)
 /**
  * 字符串编码
  */
-function encodeHtml($fString)
+function encode_html($fString)
 {
     $val = preg_replace(['/\</i', '/\>/i'], ['&lt;', '&gt;'], $fString);
     //$val = preg_replace('/([\x00-\x08,\x0b-\x0c,\x0e-\x19])/', '', $val);
@@ -642,7 +642,7 @@ function encodeHtml($fString)
 /**
  * 隐藏Ip最后一段
  */
-function hiddenIp($ip)
+function hidden_ip($ip)
 {
     global $userisadmin;
     if (!empty($userisadmin) && $userisadmin > 0) {
@@ -660,7 +660,7 @@ function hiddenIp($ip)
 /**
  * 屏蔽部分非法字符
  */
-function removeBlock($str)
+function remove_block($str)
 {
     $str = str_replace("'", '', $str);
     $str = str_replace('"', '', $str);
@@ -670,7 +670,7 @@ function removeBlock($str)
 /**
  * 清除HTML标签
  */
-function removeHtmlTag($str)
+function remove_html_tag($str)
 {
     $str = preg_replace('/<\/?([^>]*)>/is', '', $str);
     return $str;
@@ -679,7 +679,7 @@ function removeHtmlTag($str)
 /**
  * 字符串最后一位存在某字符时,则去除
  */
-function removeLastStr($str, $sign)
+function remove_last_str($str, $sign)
 {
     $str = trim($str);
     $len = strlen($str);
@@ -694,7 +694,7 @@ function removeLastStr($str, $sign)
 /**
  * 替换单引号及双引号
  */
-function replaceQuotes($str, $isdel = 9)
+function replace_quotes($str, $isdel = 9)
 {
     $str = trim($str);
     if ($isdel == 9) {
@@ -714,14 +714,14 @@ function replaceQuotes($str, $isdel = 9)
  * $start => 开始位置
  * $len => 截取长度
  */
-function strCut($str, $start, $len)
+function str_cut($str, $start, $len)
 {
     if ($start < 0) {
         $start = strlen($str) + $start;
     }
 
-    $retstart = $start + getOfFirstIndex($str, $start);
-    $retend = $start + $len - 1 + getOfFirstIndex($str, $start + $len);
+    $retstart = $start + get_of_first_index($str, $start);
+    $retend = $start + $len - 1 + get_of_first_index($str, $start + $len);
     return substr($str, $retstart, $retend - $retstart + 1);
 }
 
@@ -731,7 +731,7 @@ function strCut($str, $start, $len)
  **$length ==> 截取的长度
  **$sss ==> 是否加省略号
  */
-function wordsCut($string, $length, $sss = 0)
+function words_cut($string, $length, $sss = 0)
 {
     if (strlen($string) > $length) {
         if ($sss) {
@@ -754,7 +754,7 @@ function wordsCut($string, $length, $sss = 0)
 // 消息类
 class message
 {
-    public function showErr($str, $url = 'javascript:history.go(-1);', $sec = '5')
+    public function show_err($str, $url = 'javascript:history.go(-1);', $sec = '5')
     {
         $html = file_get_contents(LCY_ROOT . 'member/msg.html');
         $str = empty($str) ? '您所请求的页面地址不存在!' : $str;
@@ -764,7 +764,7 @@ class message
         echo $html;
         exit();
     }
-    public function show404($str = '')
+    public function show_404($str = '')
     {
         $html = file_get_contents(LCY_ROOT . 'member/404.html');
         $str = empty($str) ? '您所请求的页面地址不存在!' : $str;
@@ -772,7 +772,7 @@ class message
         echo $html;
         exit();
     }
-    public function goUrl($url)
+    public function go_url($url)
     {
         header('Location: ' . $url);
         exit();

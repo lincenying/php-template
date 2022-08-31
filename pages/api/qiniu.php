@@ -23,7 +23,7 @@ try {
     $fileName = $file['name'];
 
     $nowDate = date('YmdHis');
-    $rondomStr = getRandomStr(8, 'Aa');
+    $rondomStr = get_random_str(8, 'Aa');
     $ext = explode('.', $fileName);
     $fileExt = $ext[count($ext) - 1];
     $myFile = $nowDate . '_' . $rondomStr;

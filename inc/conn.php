@@ -22,7 +22,7 @@ if ($onMemCache) {
 
 $global = [];
 $global['cacheTime'] = 900; //缓存时间
-$global['clientIp'] = GetIP();
+$global['clientIp'] = get_ip();
 $global['clientAgent'] = $_SERVER['HTTP_USER_AGENT'];
-$global['script'] = str_replace(['/', '.php', 'php'], '', $_SERVER['SCRIPT_NAME']);
+$global['uri'] = $_SERVER['REQUEST_URI'];
 $global['ajaxFile'] = ['ajax'];

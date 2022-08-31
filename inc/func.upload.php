@@ -412,7 +412,7 @@ class upload
         $while = 1;
         $return = '';
         while ($while > 0) {
-            $rondomStr = getRandomStr(8, 'Aa');
+            $rondomStr = get_random_str(8, 'Aa');
             $myFile = $this->nowDate . '_' . $rondomStr;
             $fileNewName = $myFile . '.' . $fileExt;
             $filename = $this->filePath . $fileNewName;
@@ -580,13 +580,13 @@ class upload
             $extArr = explode('.', $this->files['name']);
             $fileExt = $extArr[count($extArr) - 1];
 
-            if (!checkFileType($fileExt)) {
+            if (!check_file_type($fileExt)) {
                 $return['err_msg'] = '文件类型不允许';
             } elseif (ceil($this->files['size']) > $this->attaMaxSize) {
                 $return['err_msg'] = '文件大小超出!';
             } else {
                 //重新定义文件名;
-                $rondomStr = getRandomStr(8, 'Aa');
+                $rondomStr = get_random_str(8, 'Aa');
                 $myFile = $this->nowDate . '_' . $rondomStr;
                 $fileNewName = $myFile . '.' . $fileExt;
                 $fileName = $this->filePath . $fileNewName;

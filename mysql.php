@@ -15,7 +15,7 @@ echo $get2;
 print_r($_GET);
 
 $sql = 'SELECT * FROM cyxw_cash';
-$memCacheKey = getSqlMd5($sql, []);
+$memCacheKey = get_sql_md5($sql, []);
 $person = [];
 if ($onMemCache == false || !($person = $memCache->get($memCacheKey))) {
     $person = $db->query($sql);
@@ -29,20 +29,20 @@ dd($persons_num, "single('SELECT count(*) FROM cyxw_cash')");
 
 $sql = 'SELECT c_cashname FROM cyxw_cash WHERE c_id > ?';
 $data = ['1'];
-echo getSqlMd5($sql, $data);
+echo get_sql_md5($sql, $data);
 $firstname = $db->single($sql, $data);
 dd($firstname, "single('SELECT c_cashname FROM cyxw_cash WHERE c_id > ?', ['1'])");
 
 $sql = 'SELECT c_id, c_cashname FROM cyxw_cash WHERE c_id > :id order by c_id desc';
 $data = ['id' => '1'];
-echo getSqlMd5($sql, $data);
+echo get_sql_md5($sql, $data);
 $id_age = $db->row($sql, $data);
 dd($id_age, "row('SELECT c_id, c_cashname FROM cyxw_cash WHERE c_id > :id ', ['id' => '1'])");
 
 // Single Row with numeric index
 $sql = 'SELECT c_id, c_cashname FROM cyxw_cash WHERE c_cashname = :f';
 $data = ['f' => '林岑影'];
-echo getSqlMd5($sql, $data);
+echo get_sql_md5($sql, $data);
 $id_age_num = $db->row($sql, $data, PDO::FETCH_NUM);
 dd($id_age_num, "row('SELECT c_id, c_cashname FROM cyxw_cash WHERE c_cashname = :f', ['f' => '林岑影'], PDO::FETCH_NUM)");
 // Column, numeric index

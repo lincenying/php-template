@@ -1,6 +1,6 @@
 <?php
 $page = isset($page) ? intval($page) : 1;
-$perPage = isset($perPage) ? intval($perPage) : 10;
+$per_page = isset($per_page) ? intval($per_page) : 10;
 $prevPage = $page - 1;
 $nextPage = $page + 1;
 
@@ -9,7 +9,7 @@ try {
     // 统计数量
     $countSql = 'select count(*) as num from cyxw_archive';
     $total = 0;
-    $totalMemCacheKey = getSqlMd5($countSql, []);
+    $totalMemCacheKey = get_sql_md5($countSql, []);
     if ($onMemCache == false || !($total = $memCache->get($totalMemCacheKey))) {
         $total = $db->single($countSql);
         $onMemCache && $memCache->set($totalMemCacheKey, $total, 0, 86400);
@@ -17,11 +17,11 @@ try {
 
     // 列表数据
     $order = ' order by c_id desc';
-    $limitLeft = ($page - 1) * $perPage;
-    $limit = ' limit ' . $limitLeft . ', ' . $perPage;
+    $limitLeft = ($page - 1) * $per_page;
+    $limit = ' limit ' . $limitLeft . ', ' . $per_page;
     $params = [];
     $sql = 'SELECT * FROM cyxw_archive' . $order . $limit;
-    $memCacheKey = getSqlMd5($sql, $params);
+    $memCacheKey = get_sql_md5($sql, $params);
     $list = [];
     if ($onMemCache == false || !($list = $memCache->get($memCacheKey))) {
         $list = $db->query($sql, $params);
@@ -30,9 +30,9 @@ try {
     $return['code'] = 200;
     $return['data'] = [];
     $return['data']['total'] = $total;
-    $return['data']['per_page'] = $perPage;
+    $return['data']['per_page'] = $per_page;
     $return['data']['current_page'] = $page;
-    $return['data']['last_page'] = ceil($total / $perPage);
+    $return['data']['last_page'] = ceil($total / $per_page);
     $return['data']['data'] = $list;
 } catch (Exception $e) {
     $return['code'] = 300;

@@ -13,30 +13,30 @@ $twigFile = 'home.twig';
 // 业务代码开始 ======>
 
 $page = isset($page) ? intval($page) : 1;
-$perPage = isset($perPage) ? intval($perPage) : 10;
+$per_page = isset($per_page) ? intval($per_page) : 10;
 $prevPage = $page - 1;
 $nextPage = $page + 1;
 
 // 统计数量
 $countSql = 'select count(*) as num from cyxw_archive';
 $total = 0;
-$totalMemCacheKey = getSqlMd5($countSql, []);
+$totalMemCacheKey = get_sql_md5($countSql, []);
 if ($onMemCache == false || !($total = $memCache->get($totalMemCacheKey))) {
     $total = $db->single($countSql);
     $onMemCache && $memCache->set($totalMemCacheKey, $total, 0, 86400);
 }
 
 // 分页设置
-$classPage = new page(['total' => $total, 'nowindex' => $page, 'perpage' => $perPage, 'pagename' => 'page', 'url' => '/?', 'rewrite' => false]);
+$classPage = new page(['total' => $total, 'now_index' => $page, 'per_page' => $per_page, 'pageName' => 'page', 'url' => '/?', 'rewrite' => false]);
 $limitLeft = $classPage->offset;
 $pages = $classPage->show(2);
 
 // 列表数据
 $order = ' order by c_id desc';
-$limit = ' limit ' . $limitLeft . ', ' . $perPage;
+$limit = ' limit ' . $limitLeft . ', ' . $per_page;
 $params = [];
 $sql = 'SELECT * FROM cyxw_archive' . $order . $limit;
-$memCacheKey = getSqlMd5($sql, $params);
+$memCacheKey = get_sql_md5($sql, $params);
 $list = [];
 if ($onMemCache == false || !($list = $memCache->get($memCacheKey))) {
     $list = $db->query($sql, $params);
@@ -51,6 +51,7 @@ $seo = [
 
 $twigData = [
     'global' => $global,
+    'router' => $routeVars,
     'seo' => $seo,
     'total' => $total,
     'list' => $list,

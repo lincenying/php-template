@@ -19,6 +19,7 @@ $seo = [
 
 $twigData = [
     'global' => $global,
+    'router' => $routeVars,
     'seo' => $seo,
 ];
 

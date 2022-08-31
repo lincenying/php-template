@@ -1,16 +1,16 @@
 <?php
 $page = 1;
-$perPage = 10;
+$per_page = 10;
 
 $return = [];
 try {
     // 列表数据
     $order = ' order by c_id desc';
-    $limitLeft = ($page - 1) * $perPage;
-    $limit = ' limit ' . $limitLeft . ', ' . $perPage;
+    $limitLeft = ($page - 1) * $per_page;
+    $limit = ' limit ' . $limitLeft . ', ' . $per_page;
     $params = [];
     $sql = 'SELECT * FROM cyxw_archive' . $order . $limit;
-    $memCacheKey = getSqlMd5($sql, $params);
+    $memCacheKey = get_sql_md5($sql, $params);
     $list = [];
     if ($onMemCache == false || !($list = $memCache->get($memCacheKey))) {
         $list = $db->query($sql, $params);

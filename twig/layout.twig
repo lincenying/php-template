@@ -13,6 +13,7 @@
 		{% endblock %}
         <script>
             window.$$global = {{ global|json_encode|raw }}
+            window.$$router = {{ router|json_encode|raw }}
         </script>
 	</head>
 	<body data-config='{{ global|json_encode|raw }}'>

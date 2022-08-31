@@ -8,7 +8,7 @@
 
 require_once('../libs/classes/page.class.php');
 
-$page=new page(array('total'=>1000,'perpage'=>20));
+$page=new page(array('total'=>1000,'per_page'=>20));
 
 echo 'mode:1<br>'.$page->show();
 
@@ -20,7 +20,7 @@ echo '<hr>mode:4<br>'.$page->show(4);
 
 开启AJAX：
 
-$ajaxpage=new page(array('total'=>1000,'perpage'=>20,'ajax'=>'ajax_page','page_name'=>'test'));
+$ajaxpage=new page(array('total'=>1000,'per_page'=>20,'ajax'=>'ajax_page','page_name'=>'test'));
 
 echo 'mode:1<br>'.$ajaxpage->show();
 
@@ -50,10 +50,10 @@ class page
      * private
      *
      */
-    public $pagebarnum = 10; //控制记录条的个数。
-    public $totalpage = 0; //总页数
+    public $page_bar_num = 10; //控制记录条的个数。
+    public $total_page = 0; //总页数
     public $ajax_action_name = ''; //AJAX动作名
-    public $nowindex = 1; //当前页
+    public $now_index = 1; //当前页
     public $url = ''; //url地址头
     public $offset = 0;
     public $pattern = [
@@ -65,7 +65,7 @@ class page
     /**
      * constructor构造函数
      *
-     * @param array $array['total'],$array['perpage'],$array['nowindex'],$array['url'],$array['ajax']...
+     * @param array $array['total'],$array['per_page'],$array['now_index'],$array['url'],$array['ajax']...
      */
 
     public function __construct($array)
@@ -75,35 +75,35 @@ class page
                 $this->error(__FUNCTION__, 'need a param of total');
             }
             $total = intval($array['total']);
-            $perpage = array_key_exists('perpage', $array) ? intval($array['perpage']) : 10;
-            $nowindex = array_key_exists('nowindex', $array) ? intval($array['nowindex']) : '';
+            $per_page = array_key_exists('per_page', $array) ? intval($array['per_page']) : 10;
+            $now_index = array_key_exists('now_index', $array) ? intval($array['now_index']) : '';
             $url = array_key_exists('url', $array) ? $array['url'] : '';
             $rewrite = array_key_exists('rewrite', $array) ? $array['rewrite'] : true;
         } else {
             $total = $array;
-            $perpage = 10;
-            $nowindex = '';
+            $per_page = 10;
+            $now_index = '';
             $url = '';
             $rewrite = true;
         }
         if (!is_int($total) || $total < 0) {
             $this->error(__FUNCTION__, $total . ' is not a positive integer!');
         }
-        if (!is_int($perpage) || $perpage <= 0) {
-            $this->error(__FUNCTION__, $perpage . ' is not a positive integer!');
+        if (!is_int($per_page) || $per_page <= 0) {
+            $this->error(__FUNCTION__, $per_page . ' is not a positive integer!');
         }
         if (!empty($array['page_name'])) {
             $this->set('page_name', $array['page_name']);
         }
-        //设置pagename
-        if ($nowindex > 999) {
-            $this->pagebarnum = 7;
+        //设置pageName
+        if ($now_index > 999) {
+            $this->page_bar_num = 7;
         }
         $this->total = $total;
-        $this->totalpage = ceil($total / $perpage);
-        $this->_set_nowindex($nowindex); //设置当前页
-        $this->_set_url($url); //设置链接地址
-        $this->offset = ($this->nowindex - 1) * $perpage;
+        $this->total_page = ceil($total / $per_page);
+        $this->set_now_index($now_index); //设置当前页
+        $this->set_url($url); //设置链接地址
+        $this->offset = ($this->now_index - 1) * $per_page;
         $this->rewrite = $rewrite;
         if (!empty($array['ajax'])) {
             $this->open_ajax($array['ajax']);
@@ -140,7 +140,7 @@ class page
 
     public function page_bar($style = 'page')
     {
-        return '<li class="text">共' . $this->total . '条记录,' . $this->nowindex . '/' . $this->totalpage . '页 </li>';
+        return '<li class="text">共' . $this->total . '条记录,' . $this->now_index . '/' . $this->total_page . '页 </li>';
     }
 
     /**
@@ -152,8 +152,8 @@ class page
 
     public function next_page($style = '')
     {
-        if ($this->nowindex < $this->totalpage) {
-            return '<li class="next">' . $this->_get_link($this->_get_url($this->nowindex + 1), $this->next_page, $style) . '</li>';
+        if ($this->now_index < $this->total_page) {
+            return '<li class="next">' . $this->_get_link($this->_get_url($this->now_index + 1), $this->next_page, $style) . '</li>';
         }
         return '<li class="next"><a href="javascript:;">' . $this->next_page . '</a></li>';
     }
@@ -167,8 +167,8 @@ class page
 
     public function pre_page($style = '')
     {
-        if ($this->nowindex > 1) {
-            return '<li class="prev">' . $this->_get_link($this->_get_url($this->nowindex - 1), $this->pre_page, $style) . '</li>';
+        if ($this->now_index > 1) {
+            return '<li class="prev">' . $this->_get_link($this->_get_url($this->now_index - 1), $this->pre_page, $style) . '</li>';
         }
         return '<li class="prev"><a href="javascript:;">' . $this->pre_page . '</a></li>';
     }
@@ -181,7 +181,7 @@ class page
 
     public function first_page($style = '')
     {
-        if ($this->nowindex == 1) {
+        if ($this->now_index == 1) {
             return '<li class="prev"><a href="javascript:;">' . $this->first_page . '</a></li>';
         }
         return '<li class="prev">' . $this->_get_link($this->_get_url(1), $this->first_page, $style) . '</li>';
@@ -195,27 +195,27 @@ class page
 
     public function last_page($style = '')
     {
-        if ($this->nowindex == $this->totalpage) {
+        if ($this->now_index == $this->total_page) {
             return '<li class="next"><a href="javascript:;">' . $this->last_page . '</a></li>';
         }
-        return '<li class="next">' . $this->_get_link($this->_get_url($this->totalpage), $this->last_page, $style) . '</li>';
+        return '<li class="next">' . $this->_get_link($this->_get_url($this->total_page), $this->last_page, $style) . '</li>';
     }
 
-    public function nowbar($style = '', $nowindex_style = 'active')
+    public function nowbar($style = '', $now_index_style = 'active')
     {
-        $plus = ceil($this->pagebarnum / 2);
-        if ($this->pagebarnum - $plus + $this->nowindex > $this->totalpage) {
-            $plus = $this->pagebarnum - $this->totalpage + $this->nowindex;
+        $plus = ceil($this->page_bar_num / 2);
+        if ($this->page_bar_num - $plus + $this->now_index > $this->total_page) {
+            $plus = $this->page_bar_num - $this->total_page + $this->now_index;
         }
-        $begin = $this->nowindex - $plus + 1;
+        $begin = $this->now_index - $plus + 1;
         $begin = $begin >= 1 ? $begin : 1;
         $return = '';
-        for ($i = $begin; $i < $begin + $this->pagebarnum; $i++) {
-            if ($i <= $this->totalpage) {
-                if ($i != $this->nowindex) {
+        for ($i = $begin; $i < $begin + $this->page_bar_num; $i++) {
+            if ($i <= $this->total_page) {
+                if ($i != $this->now_index) {
                     $return .= $this->_get_text($this->_get_link($this->_get_url($i), $i, $style));
                 } else {
-                    $return .= $this->_get_text($this->_get_link('javascript:;', $i, $nowindex_style));
+                    $return .= $this->_get_text($this->_get_link('javascript:;', $i, $now_index_style));
                 }
             } else {
                 break;
@@ -235,8 +235,8 @@ class page
     public function select()
     {
         $return = '<select name="PB_Page_Select" onchange=window.location="' . $this->url . '"+this.value;>';
-        for ($i = 1; $i <= $this->totalpage; $i++) {
-            if ($i == $this->nowindex) {
+        for ($i = 1; $i <= $this->total_page; $i++) {
+            if ($i == $this->now_index) {
                 $return .= '<option value="' . $i . '" selected>' . $i . '</option>';
             } else {
                 $return .= '<option value="' . $i . '">' . $i . '</option>';
@@ -316,7 +316,7 @@ class page
      * @param: String $url
      * @return boolean
      */
-    public function _set_url($url = '')
+    public function set_url($url = '')
     {
         if (!empty($url)) {
             //手动设置
@@ -336,7 +336,7 @@ class page
             } else {
                 if (stristr($qs, $this->page_name . '=')) {
                     //地址存在页面参数
-                    $this->url = $_SERVER['PHP_SELF'] . '?' . str_replace($this->page_name . '=' . $this->nowindex, '', $this->parseurl($qs));
+                    $this->url = $_SERVER['PHP_SELF'] . '?' . str_replace($this->page_name . '=' . $this->now_index, '', $this->parseurl($qs));
                     $last = $this->url[strlen($this->url) - 1];
                     if ($last == '?' || $last == '&') {
                         $this->url .= $this->page_name . '=';
@@ -355,24 +355,24 @@ class page
      *
      */
 
-    public function _set_nowindex($nowindex)
+    public function set_now_index($now_index)
     {
-        if (empty($nowindex)) {
+        if (empty($now_index)) {
             //系统获取
             if (isset($_GET[$this->page_name])) {
-                if ($_GET[$this->page_name] > $this->totalpage) {
-                    $nowpage = $this->totalpage;
+                if ($_GET[$this->page_name] > $this->total_page) {
+                    $nowpage = $this->total_page;
                 } else {
                     $nowpage = $_GET[$this->page_name];
                 }
                 if (empty($nowpage)) {
                     $nowpage = 1;
                 }
-                $this->nowindex = intval($nowpage);
+                $this->now_index = intval($nowpage);
             }
         } else {
             //手动设置
-            $this->nowindex = intval($nowindex);
+            $this->now_index = intval($now_index);
         }
     }
 

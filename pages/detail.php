@@ -20,7 +20,7 @@ if (empty($id)) {
 // 详情数据
 $params = [$id];
 $sql = 'SELECT * FROM cyxw_archive where c_id = ?';
-$memCacheKey = getSqlMd5($sql, $params);
+$memCacheKey = get_sql_md5($sql, $params);
 $row = [];
 if ($onMemCache == false || !($row = $memCache->get($memCacheKey))) {
     $row = $db->row($sql, $params);
@@ -39,6 +39,7 @@ $seo = [
 
 $twigData = [
     'global' => $global,
+    'router' => $routeVars,
     'seo' => $seo,
     'row' => $row,
 ];
