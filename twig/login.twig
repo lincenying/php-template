@@ -1,0 +1,53 @@
+{% extends 'layout.twig' %}
+
+{% import 'import/form.twig' as form %}
+
+{% block content %}
+    {% verbatim %}
+	<template v-if="data">
+		<div>Your name: {{ data.name }}</div>
+		<div>Your pass: {{ data.pass }}</div>
+	</template>
+    {% endverbatim %}
+    <form action="" method="post">
+        {{ form.input('name', 'Your name', '请输入用户名', {class: 'superclass'}) }}
+        {{ form.input('pass', 'Your pass', '请输入密码') }}
+        <div class="form-group">
+            <button @click.stop.prevent="handleSubmit" type="submit" class="btn btn-primary">Send</button>
+        </div>
+    </form>
+{% endblock %}
+
+{% block js %}
+<script src="https://unpkg.zhimg.com/vue@2.7.10/dist/vue.js"></script>
+<script>
+const $app$ = new Vue({
+    name: 'app',
+    el: '#app',
+    components: {},
+    data: {
+        form: {
+            name: '',
+            pass: ''
+        },
+        data: null
+    },
+    directives: {},
+    computed: {},
+    watch: {},
+    mounted() {
+
+    },
+    methods: {
+        handleSubmit() {
+            console.log(this.form)
+            $.post('/api/contact', this.form, null, "json").then(data => {
+                console.log(data)
+                this.data = data.data
+            })
+        }
+    }
+})
+window.$app$ = $app$
+</script>
+{% endblock %}

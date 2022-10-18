@@ -21,6 +21,8 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) 
     $r->addRoute('GET', '/', 'index');
     $r->addRoute('GET', '/other', '404');
     $r->addRoute('GET', '/contact', 'contact');
+    $r->addRoute('GET', '/login', 'login');
+    $r->addRoute('GET', '/serviceValidate', 'serviceValidate');
     $r->addRoute('POST', '/contact/submit', 'contact');
     $r->addRoute('GET', '/company', 'company');
     $r->addRoute('GET', '/detail/{id:\d+}', 'detail');
