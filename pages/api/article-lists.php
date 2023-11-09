@@ -1,6 +1,6 @@
 <?php
 $page = isset($page) ? intval($page) : 1;
-$per_page = isset($per_page) ? intval($per_page) : 10;
+$limit = isset($limit) ? intval($limit) : 10;
 $prevPage = $page - 1;
 $nextPage = $page + 1;
 
@@ -17,8 +17,8 @@ try {
 
     // 列表数据
     $order = ' order by c_id desc';
-    $limitLeft = ($page - 1) * $per_page;
-    $limit = ' limit ' . $limitLeft . ', ' . $per_page;
+    $limitLeft = ($page - 1) * $limit;
+    $limit = ' limit ' . $limitLeft . ', ' . $limit;
     $params = [];
     $sql = 'SELECT * FROM cyxw_archive' . $order . $limit;
     $memCacheKey = get_sql_md5($sql, $params);
@@ -27,13 +27,13 @@ try {
         $list = $db->query($sql, $params);
         $onMemCache && $memCache->set($memCacheKey, $list, 0, 86400);
     }
-    $lastPage = ceil($total / $per_page);
+    $lastPage = ceil($total / $limit);
     $return['code'] = 200;
     $return['data'] = [];
     $return['data']['list'] = $list;
     $return['data']['total'] = $total;
     $return['data']['page'] = $page;
-    $return['data']['perPage'] = $per_page;
+    $return['data']['perPage'] = $limit;
     $return['data']['totalPage'] = $lastPage;
     $return['data']['hasNext'] = $lastPage > $page;
     $return['data']['hasPrev'] = $page > 1;
