@@ -27,13 +27,16 @@ try {
         $list = $db->query($sql, $params);
         $onMemCache && $memCache->set($memCacheKey, $list, 0, 86400);
     }
+    $lastPage = ceil($total / $per_page);
     $return['code'] = 200;
     $return['data'] = [];
+    $return['data']['list'] = $list;
     $return['data']['total'] = $total;
-    $return['data']['per_page'] = $per_page;
-    $return['data']['current_page'] = $page;
-    $return['data']['last_page'] = ceil($total / $per_page);
-    $return['data']['data'] = $list;
+    $return['data']['page'] = $page;
+    $return['data']['perPage'] = $per_page;
+    $return['data']['totalPage'] = $lastPage;
+    $return['data']['hasNext'] = $lastPage > $page;
+    $return['data']['hasPrev'] = $page > 1;
 } catch (Exception $e) {
     $return['code'] = 300;
     $return['data'] = null;
