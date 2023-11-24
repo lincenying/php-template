@@ -1,22 +1,16 @@
 {
   "name": "php-template",
+  "type": "module",
   "version": "1.0.0",
-  "main": "index.js",
-  "repository": "https://e.coding.net/lincenying/php/php-template.git",
   "author": "林岑影 <lincenying@qq.com>",
   "license": "MIT",
+  "repository": "https://e.coding.net/lincenying/php/php-template.git",
   "devDependencies": {
-    "@babel/core": "^7.18.13",
+    "@lincy/eslint-config": "^4.0.3",
+    "@lincy/stylelint-config": "^1.15.10",
     "@prettier/plugin-php": "^0.16.1",
     "eslint": "^8.22.0",
-    "eslint-config-lcy-vue": "^3.2.0",
-    "eslint-plugin-babel": "^5.3.1",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-vue": "^9.4.0",
     "prettier": "^2.7.1",
-    "stylelint": "^14.11.0",
-    "stylelint-config-standard-scss": "^5.0.0",
-    "stylelint-order": "^5.0.0"
+    "typescript": "^5.3.2"
   }
 }

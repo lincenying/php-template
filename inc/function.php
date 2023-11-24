@@ -389,7 +389,7 @@ function get_random_str($length, $type)
 /**
  * 将SQL语句用MD5加密, 用于memcache的key
  */
-function get_sql_md5($sql, $array)
+function get_sql_md5($sql, $array = [])
 {
     $tmpSql = $sql;
     $index = 0;

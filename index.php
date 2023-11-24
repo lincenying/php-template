@@ -18,35 +18,35 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) 
      * $routePattern /开头, 可以用正则修饰
      * $handler
      */
-    $r->addRoute('GET', '/', 'index');
-    $r->addRoute('GET', '/other', '404');
-    $r->addRoute('GET', '/contact', 'contact');
-    $r->addRoute('GET', '/4a/login', 'login');
-    $r->addRoute('GET', '/4a/serviceValidate', 'serviceValidate');
-    $r->addRoute('POST', '/contact/submit', 'contact');
-    $r->addRoute('GET', '/company', 'company');
-    $r->addRoute('GET', '/detail/{id:\d+}', 'detail');
+    $r->get('/', 'index');
+    $r->get('/detail/{id:\d+}', 'detail');
+    $r->get('/company', 'company');
+    $r->get('/contact', 'contact');
+    $r->post('/contact/submit', 'contact');
+    $r->get('/4a/login', 'login');
+    $r->get('/4a/serviceValidate', 'serviceValidate');
+    $r->get('/other', '404');
     // 分组
     $r->addGroup('/api', function (FastRoute\RouteCollector $r) {
         // {id} must be a number (\d+)
-        $r->addRoute('POST', '/contact', 'api/contact');
-        $r->addRoute('GET', '/other', 'api/other');
-        $r->addRoute('POST', '/upload', 'api/upload');
-        $r->addRoute('POST', '/qiniu', 'api/qiniu');
-        $r->addRoute('GET', '/article/list', 'api/article-list');
-        $r->addRoute('GET', '/article/lists', 'api/article-lists');
-        $r->addRoute('GET', '/article/detail/{id:\d+}', 'api/article-detail');
+        $r->post('/contact', 'api/contact');
+        $r->get('/other', 'api/other');
+        $r->post('/upload', 'api/upload');
+        $r->post('/qiniu', 'api/qiniu');
+        $r->get('/article/list', 'api/article-list');
+        $r->get('/article/lists', 'api/article-lists');
+        $r->get('/article/detail/{id:\d+}', 'api/article-detail');
         // The /{title} suffix is optional
-        // $r->addRoute('GET', '/articles/{id:\d+}[/{title}]', 'get_article_handler');
-        // $r->addRoute('GET', '/users', 'get_all_users_handler');
+        // $r->get('/articles/{id:\d+}[/{title}]', 'get_article_handler');
+        // $r->get('/users', 'get_all_users_handler');
     });
 });
 
 // 使用缓存
 $dispatcher2 = FastRoute\cachedDispatcher(function (FastRoute\RouteCollector $r) {
-    $r->addRoute('GET', '/user/{name}/{id:[0-9]+}', 'handler0');
-    $r->addRoute('GET', '/user/{id:[0-9]+}', 'handler1');
-    $r->addRoute('GET', '/user/{name}', 'handler2');
+    $r->get('/user/{name}/{id:[0-9]+}', 'handler0');
+    $r->get('/user/{id:[0-9]+}', 'handler1');
+    $r->get('/user/{name}', 'handler2');
 }, [
     'cacheFile' => __DIR__ . '/route.cache', /* required */
 ]);

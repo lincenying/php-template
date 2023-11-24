@@ -425,17 +425,7 @@ class page
         }
         if ($this->is_ajax) {
             //如果是使用AJAX模式
-            return '<a ' .
-            $style .
-            ' href="' .
-            $url .
-            '" onclick="javascript:' .
-            $this->ajax_action_name .
-                '(\'' .
-                $url .
-                '\');return false;" title="">' .
-                $text .
-                '</a>';
+            return '<a ' . $style . ' href="' . $url . '" onclick="javascript:' . $this->ajax_action_name . '(\'' . $url . '\');return false;" title="">' . $text . '</a>';
         } else {
             return '<a ' . $style . ' href="' . $url . '" title="">' . $text . '</a>';
         }

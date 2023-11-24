@@ -13,6 +13,7 @@ define('LCY_ROOT', substr(dirname(__FILE__), 0, -3));
 require LCY_ROOT . 'inc/config.php';
 require LCY_ROOT . 'inc/db.class.php';
 require LCY_ROOT . 'inc/function.php';
+
 $db = new Db();
 
 if ($onMemCache) {

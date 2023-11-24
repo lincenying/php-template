@@ -3,6 +3,7 @@ $origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '';
 header('Cache-Control: no-cache, must-revalidate');
 header('Pragma: no-cache');
 header('Content-Type: application/json');
+// 允许跨域的域名
 if (strpos($origin, 'mmxiaowu.com') !== false) {
     header('Access-Control-Allow-Origin: ' . $origin);
 }

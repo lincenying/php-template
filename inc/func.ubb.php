@@ -53,50 +53,14 @@ class ubb
             }
             $message = str_replace(
                 [
-                    '[/color]',
-                    '[/size]',
-                    '[/font]',
-                    '[/align]',
-                    '[b]',
-                    '[/b]',
-                    '[p]',
-                    '[i=s]',
-                    '[i]',
-                    '[/i]',
-                    '[u]',
-                    '[/u]',
-                    '[list]',
-                    '[list=1]',
-                    '[list=a]',
-                    '[list=A]',
-                    '[*]',
-                    '[/list]',
-                    '[indent]',
-                    '[/indent]',
-                    '[/float]',
+                    '[/color]', '[/size]', '[/font]', '[/align]', '[b]', '[/b]', '[p]', '[i=s]', '[i]', '[/i]',
+                    '[u]', '[/u]', '[list]', '[list=1]', '[list=a]', '[list=A]', '[*]', '[/list]', '[indent]',
+                    '[/indent]', '[/float]',
                 ],
                 [
-                    '</span>',
-                    '</font>',
-                    '</span>',
-                    '</p>',
-                    '<strong>',
-                    '</strong>',
-                    '<p>',
-                    '<i class="pstatus">',
-                    '<i>',
-                    '</i>',
-                    '<u>',
-                    '</u>',
-                    '<ul>',
-                    '<ul type="1" class="litype_1">',
-                    '<ul type="a" class="litype_2">',
-                    '<ul type="A" class="litype_3">',
-                    '<li>',
-                    '</ul>',
-                    '<blockquote>',
-                    '</blockquote>',
-                    '</span>',
+                    '</span>', '</font>', '</span>', '</p>', '<strong>', '</strong>', '<p>', '<i class="pstatus">', '<i>', '</i>',
+                    '<u>', '</u>', '<ul>', '<ul type="1" class="litype_1">', '<ul type="a" class="litype_2">', '<ul type="A" class="litype_3">', '<li>', '</ul>', '<blockquote>',
+                    '</blockquote>', '</span>',
                 ],
                 preg_replace(
                     [
@@ -165,19 +129,18 @@ function bbCodeUrl1($m)
     if ($ubb->allowImgCode) {
         if ($ubb->isRss == true) {
             $tag =
-                '<div class="p_ubbimg"><a href="' .
-                $url .
-                '" class="lightbox" rel="lightbox" target="_blank"><img style="max-width:100%;" src="' .
-                $url .
-                '" class="ubbimg jqimg" alt="" /></a></div>';
+                '<div class="p_ubbimg">
+                    <a href="' . $url . '" class="lightbox" rel="lightbox" target="_blank">
+                        <img style="max-width:100%;" src="' . $url . '" class="ubbimg jqimg" alt="" />
+                    </a>
+                </div>';
         } else {
             $tag =
-            '<div class="p_ubbimg"><a href="' .
-            str_replace('/700', '', $url) .
-                '" class="lightbox" rel="lightbox" target="_blank"><img style="max-width:100%;"
-            src="http://ww3.sinaimg.cn/bmiddle/9ca59837gw1dqtgr6b2t7g.gif" class="ubbimg jqimg" url="' .
-                $url .
-                '" alt="{imgalt}" /></a></div>';
+            '<div class="p_ubbimg">
+                <a href="' . str_replace('/700', '', $url) . '" class="lightbox" rel="lightbox" target="_blank">
+                    <img style="max-width:100%;" src="https://i0.wp.com/ww3.sinaimg.cn/bmiddle/9ca59837gw1dqtgr6b2t7g.gif" class="ubbimg jqimg" url="' . $url . '" alt="{imgalt}" />
+                </a>
+            </div>';
         }
     } else {
         $tag = '<a href="' . $url . '" target="_blank">' . $url . '</a><br />';
@@ -197,8 +160,7 @@ function bbCodeUrl2($m)
         if ($ubb->isRss == true) {
             $tag = '<img class="jqimg2" src="' . $url . '" border="0" alt="" />';
         } else {
-            $tag =
-                '<img class="jqimg2" src="http://ww3.sinaimg.cn/bmiddle/9ca59837gw1dqtgr6b2t7g.gif" url="' . $url . '" border="0" alt="{imgalt}" />';
+            $tag = '<img class="jqimg2" src="https://i0.wp.com/ww3.sinaimg.cn/bmiddle/9ca59837gw1dqtgr6b2t7g.gif" url="' . $url . '" border="0" alt="{imgalt}" />';
         }
     } else {
         $tag = '<a href="' . $url . '" target="_blank">' . $url . '</a>';
@@ -242,19 +204,18 @@ function parseImgUrl($m)
     $ext = strtolower($ext);
     if ($ext == 'jpg' || $ext == 'jpeg' || $ext == 'png' || $ext == 'gif') {
         $return =
-            "<div class=\"p_ubbimg\"><a href=\"" .
-            $url .
-            "\" target=\"_blank\" class=\"lightbox\" rel=\"lightbox\"><img src=\"" .
-            $img .
-            "\" class=\"ubbimg\"
-            alt=\"预览图\" /></a></div>";
+            "<div class='p_ubbimg'>
+                <a href='" . $url . "' target='_blank' class='lightbox' rel='lightbox'>
+                    <img src='" . $img . "' class='ubbimg' alt='预览图' />
+                </a>
+            </div>";
     } else {
         $return =
-            "<div class=\"p_ubbimg\"><a href=\"" .
-            $url .
-            "\" target=\"_blank\"><img src=\"" .
-            $img .
-            "\" class=\"ubbimg\" alt=\"预览图\" /></a></div>";
+            "<div class='p_ubbimg'>
+                <a href='" . $url . "' target='_blank'>
+                    <img src='" . $img . "' class='ubbimg' alt='预览图' />
+                </a>
+            </div>";
     }
     return $return;
 }
@@ -295,10 +256,7 @@ function parseTable($m)
     $message = preg_replace_callback('/\[tr(?:=([\(\)%,#\w]+))?\]\s*\[td(?:=(\d{1,2}),(\d{1,2})(?:,(\d{1,4}%?))?)?\]/is', 'parseTrTr', $message);
     $message = preg_replace_callback('/\[\/td\]\s*\[td(?:=(\d{1,2}),(\d{1,2})(?:,(\d{1,4}%?))?)?\]/is', 'parseTrTd', $message);
     $message = preg_replace('/\[\/td\]\s*\[\/tr\]\s*/i', '</td></tr>', $message);
-    $return =
-        '<table cellspacing="0" class="t_table" ' .
-        ($width == '' ? null : 'style="width:' . $width . '"') .
-        ($bgcolor ? ' bgcolor="' . $bgcolor . '">' : '>');
+    $return = '<table cellspacing="0" class="t_table" ' . ($width == '' ? null : 'style="width:' . $width . '"') . ($bgcolor ? ' bgcolor="' . $bgcolor . '">' : '>');
     $return .= $message;
     $return .= '</table>';
     return $return;
@@ -309,12 +267,7 @@ function parseTrTr($m)
     $colspan = $m[1];
     $rowspan = $m[2];
     $width = $m[3];
-    return ($bgcolor == 'td' ? '</td>' : '<tr' . ($bgcolor ? ' bgcolor="' . $bgcolor . '"' : '') . '>') .
-        '<td' .
-        ($colspan > 1 ? ' colspan="' . $colspan . '"' : '') .
-        ($rowspan > 1 ? ' rowspan="' . $rowspan . '"' : '') .
-        ($width ? ' width="' . $width . '"' : '') .
-        '>';
+    return ($bgcolor == 'td' ? '</td>' : '<tr' . ($bgcolor ? ' bgcolor="' . $bgcolor . '"' : '') . '>') . '<td' . ($colspan > 1 ? ' colspan="' . $colspan . '"' : '') . ($rowspan > 1 ? ' rowspan="' . $rowspan . '"' : '') . ($width ? ' width="' . $width . '"' : '') . '>';
 }
 function parseTrTd($m)
 {
@@ -322,17 +275,7 @@ function parseTrTd($m)
     $colspan = $m[2];
     $rowspan = $m[3];
     $width = $m[4];
-    return ($bgcolor == 'td' ? '</td>' : '<tr' . ($bgcolor ? ' bgcolor="' . $bgcolor . '"' : '') . '>') .
-        '<td' .
-        ($colspan > 1
-        ? '
-            colspan="' .
-        $colspan .
-        '"'
-        : '') .
-        ($rowspan > 1 ? ' rowspan="' . $rowspan . '"' : '') .
-        ($width ? ' width="' . $width . '"' : '') .
-        '>';
+    return ($bgcolor == 'td' ? '</td>' : '<tr' . ($bgcolor ? ' bgcolor="' . $bgcolor . '"' : '') . '>') . '<td' . ($colspan > 1 ? ' colspan="' . $colspan . '"' : '') . ($rowspan > 1 ? ' rowspan="' . $rowspan . '"' : '') . ($width ? ' width="' . $width . '"' : '') . '>';
 }
 function parseMedia($m)
 {
@@ -349,27 +292,19 @@ function parseMedia($m)
             '<div id="a1"></div>
             <script type="text/javascript" src="/ckplayer/ckplayer.js" charset="utf-8"></script>
             <script type="text/javascript">
-            var flashvars = {
-                    f: "' .
-            $url .
-            '",c:0,b:1};var params={bgcolor:"#FFF",allowFullScreen:true,allowScriptAccess:"always",wmode:"transparent"};CKobject.embedSWF("/ckplayer/ckplayer.swf","a1","ckplayer_a1","' .
-            $width .
-            '","' .
-            $height .
-            '",flashvars,params);function closelights(){}function openlights(){}
+                var flashvars = { f: "' . $url . '",c:0,b:1};
+                var params = { bgcolor:"#FFF", allowFullScreen:true, allowScriptAccess:"always", wmode:"transparent" };
+                CKobject.embedSWF("/ckplayer/ckplayer.swf", "a1", "ckplayer_a1", "' . $width . '", "' . $height . '", flashvars, params);
+                function closelights(){}
+                function openlights(){}
             </script>';
     } elseif ($mediatype == 'mp4') {
         $str = '<video src="' . $url . '" width="' . $width . '" height="' . $height . '" controls="controls">您的浏览器不支持 video 标签。</video>';
     } else {
         $str =
-            '<div class="lock"><embed src="' .
-            $url .
-            '" wmode="transparent" quality="high" bgcolor="#000000" width="' .
-            $width .
-            '" height="' .
-            $height .
-            '" name="simplevideostreaming" align="middle" allowScriptAccess="sameDomain" allowFullScreen="true" type="application/x-shockwave-flash"
-                    pluginspage="http://www.macromedia.com/go/getflashplayer" /></div>';
+            '<div class="lock">
+                <embed src="' . $url . '" wmode="transparent" quality="high" bgcolor="#000000" width="' . $width . '" height="' . $height . '" name="simplevideostreaming" align="middle" allowScriptAccess="sameDomain" allowFullScreen="true" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
+            </div>';
     }
     return $str;
 }
@@ -381,14 +316,9 @@ function parseFlash($m)
     $height = 560;
     $isauto = 0;
     $str =
-        '<div class="lock"><embed src="' .
-        $url .
-        '" wmode="transparent" quality="high" bgcolor="#000000" width="' .
-        $width .
-        '" height="' .
-        $height .
-        '" name="simplevideostreaming" align="middle" allowScriptAccess="sameDomain" allowFullScreen="true" type="application/x-shockwave-flash"
-                    pluginspage="http://www.macromedia.com/go/getflashplayer" /></div>';
+        '<div class="lock">
+            <embed src="' . $url . '" wmode="transparent" quality="high" bgcolor="#000000" width="' . $width . '" height="' . $height . '" name="simplevideostreaming" align="middle" allowScriptAccess="sameDomain" allowFullScreen="true" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
+        </div>';
     return $str;
 }
 
