@@ -1,4 +1,6 @@
 <?php
+include 'api-header.php';
+
 $page = isset($page) ? intval($page) : 1;
 $limit = isset($limit) ? intval($limit) : 10;
 $prevPage = $page - 1;
@@ -43,6 +45,5 @@ try {
     $return['msg'] = $e->getMessage();
 }
 
-header('Content-Type: application/json');
 $jsonStr = json_encode($return, JSON_UNESCAPED_UNICODE);
 echo $jsonStr;

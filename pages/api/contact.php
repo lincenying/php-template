@@ -1,4 +1,5 @@
 <?php
+include 'api-header.php';
 include LCY_ROOT . 'inc/func.ubb.php';
 
 $return = [];
@@ -12,6 +13,5 @@ try {
     $return['msg'] = $e->getMessage();
 }
 
-header('Content-Type: application/json');
 $jsonStr = json_encode($return, JSON_UNESCAPED_UNICODE);
 echo $jsonStr;

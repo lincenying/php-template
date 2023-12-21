@@ -1,4 +1,6 @@
 <?php
+include 'api-header.php';
+
 $page = 1;
 $per_page = 10;
 
@@ -24,6 +26,5 @@ try {
     $return['msg'] = $e->getMessage();
 }
 
-header('Content-Type: application/json');
 $jsonStr = json_encode($return, JSON_UNESCAPED_UNICODE);
 echo $jsonStr;

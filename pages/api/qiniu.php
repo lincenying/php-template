@@ -1,5 +1,6 @@
 <?php
 require LCY_ROOT . 'vendor/autoload.php';
+include 'api-header.php';
 
 use Qiniu\Auth;
 use Qiniu\Storage\UploadManager;
@@ -53,6 +54,5 @@ try {
     $return['msg'] = $e->getMessage();
 }
 
-header('Content-Type: application/json');
 $jsonStr = json_encode($return, JSON_UNESCAPED_UNICODE);
 echo $jsonStr;
