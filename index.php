@@ -19,6 +19,7 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) 
      * $handler
      */
     $r->get('/', 'index');
+    $r->get('/detail', 'detail');
     $r->get('/detail/{id:\d+}', 'detail');
     $r->get('/company', 'company');
     $r->get('/contact', 'contact');
@@ -35,6 +36,7 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) 
         $r->post('/qiniu', 'api/qiniu');
         $r->get('/article/list', 'api/article-list');
         $r->get('/article/lists', 'api/article-lists');
+        $r->get('/article/detail', 'api/article-detail');
         $r->get('/article/detail/{id:\d+}', 'api/article-detail');
         // The /{title} suffix is optional
         // $r->get('/articles/{id:\d+}[/{title}]', 'get_article_handler');
