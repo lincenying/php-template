@@ -1,6 +1,6 @@
 <?php
 require LCY_ROOT . 'vendor/autoload.php';
-include 'api-header.php';
+require 'api-header.php';
 
 use Qiniu\Auth;
 use Qiniu\Storage\UploadManager;

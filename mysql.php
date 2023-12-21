@@ -1,5 +1,5 @@
 <?php
-include 'inc/conn.php';
+require 'inc/conn.php';
 
 function dd($v, $t = '', $sql = '')
 {

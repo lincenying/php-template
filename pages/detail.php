@@ -1,6 +1,6 @@
 <?php
-include LCY_ROOT . 'inc/func.ubb.php';
 require LCY_ROOT . 'vendor/autoload.php';
+require LCY_ROOT . 'inc/func.ubb.php';
 
 $loader = new \Twig\Loader\FilesystemLoader(LCY_ROOT . 'twig');
 $twig = new \Twig\Environment($loader, [

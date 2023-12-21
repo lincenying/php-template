@@ -1,5 +1,5 @@
 <?php
-include 'api-header.php';
+require 'api-header.php';
 require LCY_ROOT . 'inc/func.upload.php';
 
 try {

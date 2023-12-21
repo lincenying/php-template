@@ -1,6 +1,6 @@
 <?php
-include 'api-header.php';
-include LCY_ROOT . 'inc/func.ubb.php';
+require 'api-header.php';
+require LCY_ROOT . 'inc/func.ubb.php';
 
 $id = isset($id) ? intval($id) : $routeVars['id'];
 

@@ -1,5 +1,5 @@
 <?php
-include 'inc/conn.php';
+require 'inc/conn.php';
 
 $action = isset($action) ? $action : 'other';
 $action = str_replace("/", "-", $action);

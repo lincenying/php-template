@@ -1,5 +1,5 @@
 <?php
-include 'api-header.php';
+require 'api-header.php';
 
 $page = 1;
 $per_page = 10;

@@ -1,5 +1,5 @@
 <?php
-include 'api-header.php';
+require 'api-header.php';
 
 $page = isset($page) ? intval($page) : 1;
 $limit = isset($limit) ? intval($limit) : 10;

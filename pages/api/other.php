@@ -1,5 +1,5 @@
 <?php
-include 'api-header.php';
+require 'api-header.php';
 
 $return = [];
 $return['code'] = 400;
