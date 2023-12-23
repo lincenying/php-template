@@ -43,7 +43,7 @@ try {
             'markurl' => '',
             'resizeimg' => '',
             'fileText' => '',
-            'filepath' => '',
+            'filepath' => 'http://cdn.mmxiaowu.com/' . $ret['key'],
             'oldurl' => $fileName,
         ];
     }
