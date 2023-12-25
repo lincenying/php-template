@@ -12,6 +12,7 @@ try {
     $limitStr = ' limit ' . $limitLeft . ', ' . $limit;
     $params = [];
     $sql = 'SELECT * FROM cyxw_archive' . $order . $limitStr;
+    echo $sql;
     $memCacheKey = get_sql_md5($sql, $params);
     $list = [];
     if ($onMemCache == false || !($list = $memCache->get($memCacheKey))) {
