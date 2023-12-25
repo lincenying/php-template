@@ -1,8 +1,8 @@
 <?php
 require 'api-header.php';
 
-$page = 1;
-$per_page = 10;
+$page = isset($page) ? intval($page) : 1;
+$limit = isset($limit) ? intval($limit) : 10;
 
 $return = [];
 try {
