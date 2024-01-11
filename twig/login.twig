@@ -3,30 +3,30 @@
 {% import 'import/form.twig' as form %}
 
 {% block content %}
-	{% verbatim %}
-    <template v-if="data">
-        <div>Your name:
-            {{ data.name }}</div>
-        <div>Your pass:
-            {{ data.pass }}</div>
-    </template>
-	{% endverbatim %}
-	<form action="" method="post">
-		{{ form.input('name', 'Your name', '请输入用户名', {class: 'superclass'}) }}
-		{{ form.input('pass', 'Your pass', '请输入密码') }}
-		<div class="form-group">
-			<button @click.stop.prevent="handleSubmit" type="submit" class="btn btn-primary">Send</button>
-		</div>
-	</form>
+    {% verbatim %}
+        <template v-if="data">
+            <div>Your name:
+                {{ data.name }}</div>
+            <div>Your pass:
+                {{ data.pass }}</div>
+        </template>
+    {% endverbatim %}
+    <form action="" method="post">
+        {{ form.input('name', 'Your name', '请输入用户名', {class: 'superclass'}) }}
+        {{ form.input('pass', 'Your pass', '请输入密码') }}
+        <div class="form-group">
+            <button @click.stop.prevent="handleSubmit" type="submit" class="btn btn-primary">Send</button>
+        </div>
+    </form>
 {% endblock %}
 
 {% block js %}
-<script type="importmap">
-    {
-        "imports": {
-            "vue": "https://cdn.jsdelivr.net/npm/vue@3.3.8/dist/vue.esm-browser.prod.js"
+    <script type="importmap">
+        {
+            "imports": {
+                "vue": "https://cdn.jsdelivr.net/npm/vue@3.3.8/dist/vue.esm-browser.prod.js"
+            }
         }
-    }
-</script>
-<script type="module" src="/assets/js/login.js"></script>
+    </script>
+    <script type="module" src="/assets/js/login.js"></script>
 {% endblock %}
