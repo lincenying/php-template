@@ -2,8 +2,8 @@
 /**
  *  DB - A simple database class
  *
- * @author		Author: Vivek Wicky Aswal. (https://twitter.com/#!/VivekWickyAswal)
- * @git 		https://github.com/wickyaswal/PHP-MySQL-PDO-Database-Class
+ * @author        Author: Vivek Wicky Aswal. (https://twitter.com/#!/VivekWickyAswal)
+ * @git         https://github.com/wickyaswal/PHP-MySQL-PDO-Database-Class
  * @version      0.2ab
  *
  */
@@ -31,9 +31,9 @@ class DB
     /**
      *   Default Constructor
      *
-     *	1. Instantiate Log class.
-     *	2. Connect to database.
-     *	3. Creates the parameter array.
+     *    1. Instantiate Log class.
+     *    2. Connect to database.
+     *    3. Creates the parameter array.
      */
     public function __construct()
     {
@@ -43,20 +43,25 @@ class DB
     }
 
     /**
-     *	此方法连接数据库。
+     *    此方法连接数据库。
      *
-     *	1. Reads the database settings from a ini file.
-     *	2. Puts  the ini content into the settings array.
-     *	3. Tries to connect to the database.
-     *	4. If connection failed, exception is displayed and a log file gets created.
+     *    1. Reads the database settings from a ini file.
+     *    2. Puts  the ini content into the settings array.
+     *    3. Tries to connect to the database.
+     *    4. If connection failed, exception is displayed and a log file gets created.
      */
     private function Connect()
     {
         $this->settings = parse_ini_file('settings.ini.php');
-        $dsn = 'mysql:dbname=' . $this->settings['dbname'] . ';host=' . $this->settings['host'] . '';
+        $host           = getenv('DB_HOST') ?? $this->settings['host'];         // 从环境变量获取主机名（db）
+        $dbname         = getenv('DB_DATABASE') ?? $this->settings['dbname'];   // 数据库名（myapp）
+        $user           = getenv('DB_USERNAME') ?? $this->settings['user'];     // 用户名（user）
+        $pass           = getenv('DB_PASSWORD') ?? $this->settings['password']; // 密码（secret）
+        $port           = getenv('DB_PORT') ?: 3306;                            // 端口号
+        $dsn            = 'mysql:dbname=' . $dbname . ';host=' . $host . '';
         try {
             # Read settings from INI file, set UTF8
-            $this->pdo = new PDO($dsn, $this->settings['user'], $this->settings['password'], [
+            $this->pdo = new PDO($dsn, $user, $pass, [
                 PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
             ]);
 
@@ -86,19 +91,19 @@ class DB
     }
 
     /**
-     *	每个需要执行SQL查询的方法都使用此方法。
+     *    每个需要执行SQL查询的方法都使用此方法。
      *
-     *	1. 如果没有连接，请连接到数据库.
-     *	2. 准备查询.
-     *	3. 参数化查询.
-     *	4. 执行查询.
-     *	5. 关于异常:写异常到日志+ SQL查询.
-     *	6. 重新设置参数.
+     *    1. 如果没有连接，请连接到数据库.
+     *    2. 准备查询.
+     *    3. 参数化查询.
+     *    4. 执行查询.
+     *    5. 关于异常:写异常到日志+ SQL查询.
+     *    6. 重新设置参数.
      */
     private function Init($query, $parameters = '')
     {
         # Connect to database
-        if (!$this->bConnected) {
+        if (! $this->bConnected) {
             $this->Connect();
         }
         try {
@@ -109,7 +114,7 @@ class DB
             $this->bindMore($parameters);
 
             # 绑定参数
-            if (!empty($this->parameters)) {
+            if (! empty($this->parameters)) {
                 foreach ($this->parameters as $param => $value) {
                     if (is_int($value[1])) {
                         $type = PDO::PARAM_INT;
@@ -138,11 +143,11 @@ class DB
     }
 
     /**
-     *	@void
+     *    @void
      *
-     *	将参数添加到参数数组中
-     *	@param string $para
-     *	@param string $value
+     *    将参数添加到参数数组中
+     *    @param string $para
+     *    @param string $value
      */
     public function bind($para, $value)
     {
@@ -154,10 +159,10 @@ class DB
         }
     }
     /**
-     *	@void
+     *    @void
      *
-     *	向参数数组添加更多参数
-     *	@param array $parray
+     *    向参数数组添加更多参数
+     *    @param array $parray
      */
     public function bindMore($parray)
     {
@@ -170,12 +175,12 @@ class DB
     }
     /**
      *  如果SQL查询包含SELECT或SHOW语句，则返回包含所有结果集行的数组
-     *	如果SQL语句是DELETE、INSERT或UPDATE语句，则返回受影响的行数
+     *    如果SQL语句是DELETE、INSERT或UPDATE语句，则返回受影响的行数
      *
      *  @param  string $query
-     *	@param  array  $params
-     *	@param  int    $fetchmode
-     *	@return mixed
+     *    @param  array  $params
+     *    @param  int    $fetchmode
+     *    @return mixed
      */
     public function query($query, $params = null, $fetchmode = PDO::FETCH_ASSOC)
     {
@@ -234,11 +239,11 @@ class DB
     }
 
     /**
-     *	返回一个数组，该数组表示结果集中的一列
+     *    返回一个数组，该数组表示结果集中的一列
      *
-     *	@param  string $query
-     *	@param  array  $params
-     *	@return array
+     *    @param  string $query
+     *    @param  array  $params
+     *    @return array
      */
     public function column($query, $params = null)
     {
@@ -254,12 +259,12 @@ class DB
         return $column;
     }
     /**
-     *	返回一个数组，该数组表示结果集中的一行
+     *    返回一个数组，该数组表示结果集中的一行
      *
-     *	@param  string $query
-     *	@param  array  $params
-     *   	@param  int    $fetchmode
-     *	@return array
+     *    @param  string $query
+     *    @param  array  $params
+     *       @param  int    $fetchmode
+     *    @return array
      */
     public function row($query, $params = null, $fetchmode = PDO::FETCH_ASSOC)
     {
@@ -269,11 +274,11 @@ class DB
         return $result;
     }
     /**
-     *	返回单个字段/列的值
+     *    返回单个字段/列的值
      *
-     *	@param  string $query
-     *	@param  array  $params
-     *	@return string
+     *    @param  string $query
+     *    @param  array  $params
+     *    @return string
      */
     public function single($query, $params = null)
     {
@@ -295,7 +300,7 @@ class DB
         $exception .= $message;
         $exception .= '<br /> You can find the error back in the log.';
 
-        if (!empty($sql)) {
+        if (! empty($sql)) {
             # Add the Raw SQL to the Log
             $message .= "\r\nRaw SQL : " . $sql;
         }
@@ -305,4 +310,3 @@ class DB
         return $exception;
     }
 }
-?>

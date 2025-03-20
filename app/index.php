@@ -47,7 +47,7 @@ $dispatcher2 = FastRoute\cachedDispatcher(function (FastRoute\RouteCollector $r)
 
 // 获取请求和URI
 $httpMethod = $_SERVER['REQUEST_METHOD'];
-$uri = $_SERVER['REQUEST_URI'];
+$uri        = $_SERVER['REQUEST_URI'];
 
 // 去除查询字符串(?foo=bar)和解码URI
 if (false !== $pos = strpos($uri, '?')) {
@@ -62,10 +62,10 @@ $isApi = substr($uri, 0, 5) === '/api/';
 switch ($routeInfo[0]) {
     case FastRoute\Dispatcher::NOT_FOUND:
         if ($isApi) {
-            $return = [];
+            $return         = [];
             $return['code'] = 400;
             $return['data'] = null;
-            $jsonStr = json_encode($return, JSON_UNESCAPED_UNICODE);
+            $jsonStr        = json_encode($return, JSON_UNESCAPED_UNICODE);
             echo $jsonStr;
         } else {
             echo '... 404 Not Found';
@@ -74,17 +74,17 @@ switch ($routeInfo[0]) {
     case FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
         $allowedMethods = $routeInfo[1];
         if ($isApi) {
-            $return = [];
+            $return         = [];
             $return['code'] = 400;
             $return['data'] = null;
-            $jsonStr = json_encode($return, JSON_UNESCAPED_UNICODE);
+            $jsonStr        = json_encode($return, JSON_UNESCAPED_UNICODE);
             echo $jsonStr;
         } else {
             echo '... 405 Method Not Allowed';
         }
         break;
     case FastRoute\Dispatcher::FOUND:
-        $handler = $routeInfo[1];
+        $handler   = $routeInfo[1];
         $routeVars = $routeInfo[2];
         // var_dump('... call', $handler, 'with', $routeVars);
 
