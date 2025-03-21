@@ -26,14 +26,14 @@ server {
     location / {
         autoindex on;
         # 项目目录
-        root /home/web/php/php-template/;
+        root /home/web/php/php-template/app/;
         index index.html index.htm index.php;
         try_files $uri $uri/ /index.php?q=$uri&$args;
     }
 
     location ~ \.php$ {
         # 项目目录
-        root /home/web/php/php-template/;
+        root /home/web/php/php-template/app/;
         fastcgi_pass   127.0.0.1:9000;
         fastcgi_index  index.php;
         fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
@@ -47,11 +47,11 @@ server {
 
 ## docker-compose
 
-修改`docker-compose.yml`中的`db.volumes`配置, 将宿主机数据库路径映射到容器中
+修改`docker-compose.yml`中的`mysql_db.volumes`配置, 将宿主机数据库路径映射到容器中
 
 ```yaml
 volumes:
-  - /Users/lincenying/web/mongodb/data:/var/lib/mysql
+  - /Users/lincenying/web/mysqldb:/var/lib/mysql
 ```
 
 修改`docker-compose.yml`中的相关配置
@@ -76,7 +76,7 @@ webserver:
 
 根据情况自行修改`nginx/conf.d/php.conf`配置, 如果域名绑定, 端口号等
 
-如果宿主机有数据库, 或者使用外部的数据库, 可以删除`docker-compose.yml`中`db`容器, 并修改`app/inc/settings.ini.php`中的数据库配置
+如果宿主机有数据库, 或者使用外部的数据库, 可以删除`docker-compose.yml`中`mysql_db`容器, 并修改`app/inc/settings.ini.php`中的数据库配置
 
 ```bash
 # 生成镜像及启动容器
@@ -84,5 +84,6 @@ webserver:
 docker-compose build
 docker-compose up -d
 
-# mysql -uuser -p cyxiaowu < /home/mysql/mysql.sql
+# 进入mysql_db容器, 恢复mysql数据库
+mysql -uuser -p myapp < /home/mysql/mysql.sql
 ```
