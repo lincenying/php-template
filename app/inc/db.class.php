@@ -54,9 +54,9 @@ class DB
     {
         $this->settings = parse_ini_file('settings.ini.php');
         $host           = getenv('DB_HOST') ?? $this->settings['host'];         // 从环境变量获取主机名（db）
-        $dbname         = getenv('DB_DATABASE') ?? $this->settings['dbname'];   // 数据库名（myapp）
+        $dbname         = getenv('DB_DATABASE') ?? $this->settings['dbname'];   // 数据库名（cyxiaowu）
         $user           = getenv('DB_USERNAME') ?? $this->settings['user'];     // 用户名（user）
-        $pass           = getenv('DB_PASSWORD') ?? $this->settings['password']; // 密码（secret）
+        $pass           = getenv('DB_PASSWORD') ?? $this->settings['password']; // 密码（password）
         $port           = getenv('DB_PORT') ?: 3306;                            // 端口号
         $dsn            = 'mysql:dbname=' . $dbname . ';host=' . $host . '';
         try {

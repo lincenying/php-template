@@ -58,15 +58,15 @@ volumes:
 ```yaml
 # 给php用的
 DB_PORT: 3306
-DB_DATABASE: myapp
+DB_DATABASE: cyxiaowu
 DB_USERNAME: user
-DB_PASSWORD: secret
+DB_PASSWORD: password
 
 # 给mysql用的, 上下得一一对应
-MYSQL_ROOT_PASSWORD: rootsecret
-MYSQL_DATABASE: myapp
+MYSQL_ROOT_PASSWORD: rootpassword
+MYSQL_DATABASE: cyxiaowu
 MYSQL_USER: user
-MYSQL_PASSWORD: secret
+MYSQL_PASSWORD: password
 
 # php应用映射到宿主机的端口
 webserver:
@@ -85,5 +85,5 @@ docker-compose build
 docker-compose up -d
 
 # 进入mysql_db容器, 恢复mysql数据库
-mysql -uuser -p myapp < /home/mysql/mysql.sql
+mysql -uuser -p cyxiaowu < /home/mysql/mysql.sql
 ```
