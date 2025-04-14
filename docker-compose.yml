@@ -1,8 +1,9 @@
 version: '3.8'
 
 services:
-  php_app:
-    container_name: php_app
+  php-app-server:
+    container_name: php-app-server
+    image: lincenying/php-app-server:${TAG}
     build:
       context: .
       dockerfile: Dockerfile
@@ -11,16 +12,18 @@ services:
     networks:
       - app-network
     depends_on:
-      - mysql_db
+      - php-mysql-db
     environment:
-      DB_HOST: mysql_db
+      DB_HOST: php-mysql-db
       DB_PORT: 3306
       DB_DATABASE: cyxiaowu
       DB_USERNAME: user
       DB_PASSWORD: password
+    env_file:
+      - .env
 
-  nginx_server:
-    container_name: php_nginx_server
+  php-nginx-server:
+    container_name: php-nginx-server
     image: nginx:latest
     ports:
       - "8084:80"
@@ -30,10 +33,10 @@ services:
     networks:
       - app-network
     depends_on:
-      - php_app
+      - php-app-server
 
-  mysql_db:
-    container_name: mysql_db
+  php-mysql-db:
+    container_name: php-mysql-db
     image: mysql:8.0
     command: --default-authentication-plugin=mysql_native_password
     environment:
@@ -50,7 +53,7 @@ services:
       - app-network
 
 volumes:
-  mysql-data:
+  php-mysql-data:
     driver: local
 
 networks:

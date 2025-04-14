@@ -9,7 +9,7 @@ foreach (['_COOKIE', '_GET', '_POST'] as $_request) {
 }
 
 // php7
-if (!function_exists('ereg')) {
+if (! function_exists('ereg')) {
     function ereg($pattern, $subject, &$matches = [])
     {
         return preg_match('/' . $pattern . '/', $subject, $matches);
@@ -32,8 +32,8 @@ function check_email($inAddress)
 function check_file_type($str)
 {
     $tmpfiletype = false;
-    $filetypes = 'jpg,gif,png,jpeg';
-    $filetype_ = explode(',', $filetypes);
+    $filetypes   = 'jpg,gif,png,jpeg';
+    $filetype_   = explode(',', $filetypes);
     for ($i = 0; $i < count($filetype_); $i++) {
         if (strtolower($str) == $filetype_[$i]) {
             $tmpfiletype = true;
@@ -65,7 +65,7 @@ function check_spider()
  */
 function _is_empty($str)
 {
-    return !isset($str) ? true : ($str === 0 || $str === '0' || !empty($str) ? false : true);
+    return ! isset($str) ? true : ($str === 0 || $str === '0' || ! empty($str) ? false : true);
 }
 
 /**
@@ -91,7 +91,7 @@ function is_pjax()
  */
 function get_agent()
 {
-    $visitor = [];
+    $visitor          = [];
     $visitor['agent'] = $_SERVER['HTTP_USER_AGENT'];
     if (strpos($visitor['agent'], 'Netscape') !== false) {
         $visitor['browser'] = 'Netscape';
@@ -142,15 +142,15 @@ function get_agent()
  */
 function get_content($url, $method = 'GET', $header_array = [], $post = null, $proxy = '', $return = 'html')
 {
-    $context = [];
+    $context                    = [];
     $context['http']['timeout'] = 60;
-    $context['http']['method'] = $method;
+    $context['http']['method']  = $method;
     if (is_array($header_array) && count($header_array) > 0) {
-        $headers = implode("\r\n", $header_array);
+        $headers                   = implode("\r\n", $header_array);
         $context['http']['header'] = $headers;
     }
     if ($proxy) {
-        $context['http']['proxy'] = $proxy;
+        $context['http']['proxy']           = $proxy;
         $context['http']['request_fulluri'] = true;
     }
     if ($method == 'POST' && is_array($post)) {
@@ -158,7 +158,7 @@ function get_content($url, $method = 'GET', $header_array = [], $post = null, $p
         $context['http']['content'] = http_build_query($post, '', '&');
     }
     $context = stream_context_create($context);
-    $file = @file_get_contents($url, false, $context);
+    $file    = @file_get_contents($url, false, $context);
     if ($return == 'html') {
         return $file;
     } else {
@@ -169,7 +169,7 @@ function get_content($url, $method = 'GET', $header_array = [], $post = null, $p
 /**
  * 返回两个日期之间的时间间隔
  */
-function get_date_diff($unit = '', $date1, $date2)
+function get_date_diff($unit, $date1, $date2)
 {
     switch ($unit) {
         case 's':
@@ -256,7 +256,7 @@ function get_ip()
         $ip = '0.0.0.0';
     }
 
-    if (!preg_match('/^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/', $ip)) {
+    if (! preg_match('/^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$/', $ip)) {
         $ip = '0.0.0.0';
     }
     return $ip;
@@ -267,27 +267,27 @@ function get_ip()
  */
 function get_md5($str, $type = 'encode')
 {
-    $val = 'Q,W,E,R,T,Y,U,I,O,P,A,S,D,F,G,H,J,K,L,Z,X,C,V,B,N,M,1,2,3,4,5,6,7,8,9,0';
-    $key = '0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z';
-    $arr_val = explode(',', $val);
-    $arr_key = explode(',', $key);
+    $val      = 'Q,W,E,R,T,Y,U,I,O,P,A,S,D,F,G,H,J,K,L,Z,X,C,V,B,N,M,1,2,3,4,5,6,7,8,9,0';
+    $key      = '0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z';
+    $arr_val  = explode(',', $val);
+    $arr_key  = explode(',', $key);
     $arr_hash = [];
     if ($type == 'encode') {
         foreach ($arr_val as $k => $v) {
             $arr_hash[$arr_key[$k]] = $v;
         }
-        $str = md5($str);
-        $firstchar = $str[0];
+        $str           = md5($str);
+        $firstchar     = $str[0];
         $hashfirstchar = strtolower($arr_hash[$firstchar]);
     } else {
         foreach ($arr_key as $k => $v) {
             $arr_hash[$arr_val[$k]] = $v;
         }
-        $firstchar = strtoupper($str[0]);
+        $firstchar     = strtoupper($str[0]);
         $hashfirstchar = $arr_hash[$firstchar];
     }
     $hashchar = substr($str, 1);
-    $return = $hashfirstchar . $hashchar;
+    $return   = $hashfirstchar . $hashchar;
     return $return;
 }
 
@@ -330,10 +330,10 @@ function get_month_day($month, $year)
  */
 function get_ms()
 {
-    $time = explode(' ', microtime());
-    $time = $time[1] . $time[0] * 1000;
+    $time  = explode(' ', microtime());
+    $time  = $time[1] . $time[0] * 1000;
     $time2 = explode('.', $time);
-    $time = $time2[0];
+    $time  = $time2[0];
     return $time;
 }
 
@@ -392,7 +392,7 @@ function get_random_str($length, $type)
 function get_sql_md5($sql, $array = [])
 {
     $tmpSql = $sql;
-    $index = 0;
+    $index  = 0;
     foreach ($array as $key => $value) {
         $tmpSql = $tmpSql . ($index === 0 ? '?' : '&') . $key . '=' . $value;
         $index++;
@@ -406,10 +406,10 @@ function get_sql_md5($sql, $array = [])
  */
 function get_time_ago($the_time)
 {
-    $now_time = date('Y-m-d H:i:s');
-    $now_time = strtotime($now_time);
+    $now_time  = date('Y-m-d H:i:s');
+    $now_time  = strtotime($now_time);
     $show_time = strtotime($the_time);
-    $dur = $now_time - $show_time;
+    $dur       = $now_time - $show_time;
     if ($dur < 0) {
         return $the_time;
     } elseif ($dur < 60) {
@@ -430,15 +430,15 @@ function get_time_ago($the_time)
 /**
  * 返回已添加指定时间间隔的日期
  */
-function _date_add($unit = 'd', $int, $date)
+function _date_add($unit, $int, $date)
 {
     $dateTimeArray = getdate(strtotime($date));
-    $hours = $dateTimeArray['hours'];
-    $minutes = $dateTimeArray['minutes'];
-    $seconds = $dateTimeArray['seconds'];
-    $month = $dateTimeArray['mon'];
-    $day = $dateTimeArray['mday'];
-    $year = $dateTimeArray['year'];
+    $hours         = $dateTimeArray['hours'];
+    $minutes       = $dateTimeArray['minutes'];
+    $seconds       = $dateTimeArray['seconds'];
+    $month         = $dateTimeArray['mon'];
+    $day           = $dateTimeArray['mday'];
+    $year          = $dateTimeArray['year'];
     switch ($unit) {
         case 'yyyy':
             $year += $int;
@@ -505,7 +505,7 @@ function encode_html($fString)
     $search .= '~`";:?+/={}[]-_|\'\\';
     for ($i = 0; $i < strlen($search); $i++) {
         $val = preg_replace('/(&#[xX]0{0,8}' . dechex(ord($search[$i])) . ';?)/i', $search[$i], $val); // with a ;
-        $val = preg_replace('/(&#0{0,8}' . ord($search[$i]) . ';?)/', $search[$i], $val); // with a ;
+        $val = preg_replace('/(&#0{0,8}' . ord($search[$i]) . ';?)/', $search[$i], $val);              // with a ;
     }
 
     $ra1 = [
@@ -645,12 +645,12 @@ function encode_html($fString)
 function hidden_ip($ip)
 {
     global $userisadmin;
-    if (!empty($userisadmin) && $userisadmin > 0) {
+    if (! empty($userisadmin) && $userisadmin > 0) {
         return $ip;
     } else {
         if (preg_match('/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/', $ip)) {
             $arr_ip = explode('.', $ip);
-            $newip = implode('.', [$arr_ip[0], $arr_ip[1], $arr_ip[2], '*']);
+            $newip  = implode('.', [$arr_ip[0], $arr_ip[1], $arr_ip[2], '*']);
             return $newip;
         }
         return '';
@@ -681,8 +681,8 @@ function remove_html_tag($str)
  */
 function remove_last_str($str, $sign)
 {
-    $str = trim($str);
-    $len = strlen($str);
+    $str     = trim($str);
+    $len     = strlen($str);
     $signend = substr($str, -1, 1);
     if ($signend == $sign) {
         return substr($str, 0, $len - 1);
@@ -721,7 +721,7 @@ function str_cut($str, $start, $len)
     }
 
     $retstart = $start + get_of_first_index($str, $start);
-    $retend = $start + $len - 1 + get_of_first_index($str, $start + $len);
+    $retend   = $start + $len - 1 + get_of_first_index($str, $start + $len);
     return substr($str, $retstart, $retend - $retstart + 1);
 }
 
@@ -757,7 +757,7 @@ class message
     public function show_err($str, $url = 'javascript:history.go(-1);', $sec = '5')
     {
         $html = file_get_contents(LCY_ROOT . 'member/msg.html');
-        $str = empty($str) ? '您所请求的页面地址不存在!' : $str;
+        $str  = empty($str) ? '您所请求的页面地址不存在!' : $str;
         $html = str_replace('{str}', $str, $html);
         $html = str_replace('{url}', $url, $html);
         $html = str_replace('{sec}', $sec, $html);
@@ -767,7 +767,7 @@ class message
     public function show_404($str = '')
     {
         $html = file_get_contents(LCY_ROOT . 'member/404.html');
-        $str = empty($str) ? '您所请求的页面地址不存在!' : $str;
+        $str  = empty($str) ? '您所请求的页面地址不存在!' : $str;
         $html = str_replace('{str}', $str, $html);
         echo $html;
         exit();

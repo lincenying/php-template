@@ -35,28 +35,29 @@ class page
 
      */
 
-    public $rewrite = true;
-    public $page_name = 'page'; //page标签，用来控制url页。比如说xxx.php?PB_page=2中的PB_page
-    public $next_page = '>'; //下一页
-    public $pre_page = '<'; //上一页
-    public $first_page = 'First'; //首页
-    public $last_page = 'Last'; //尾页
-    public $pre_bar = '<<'; //上一分页条
-    public $next_bar = '>>'; //下一分页条
-    public $format_left = '<li>';
+    public $rewrite      = true;
+    public $page_name    = 'page';  //page标签，用来控制url页。比如说xxx.php?PB_page=2中的PB_page
+    public $next_page    = '>';     //下一页
+    public $pre_page     = '<';     //上一页
+    public $first_page   = 'First'; //首页
+    public $last_page    = 'Last';  //尾页
+    public $pre_bar      = '<<';    //上一分页条
+    public $next_bar     = '>>';    //下一分页条
+    public $format_left  = '<li>';
     public $format_right = '</li>';
-    public $is_ajax = false; //是否支持AJAX分页模式
+    public $is_ajax      = false; //是否支持AJAX分页模式
     /**
      * private
      *
      */
-    public $page_bar_num = 10; //控制记录条的个数。
-    public $total_page = 0; //总页数
+    public $page_bar_num     = 10; //控制记录条的个数。
+    public $total            = 0;  //总页数
+    public $total_page       = 0;  //总页数
     public $ajax_action_name = ''; //AJAX动作名
-    public $now_index = 1; //当前页
-    public $url = ''; //url地址头
-    public $offset = 0;
-    public $pattern = [
+    public $now_index        = 1;  //当前页
+    public $url              = ''; //url地址头
+    public $offset           = 0;
+    public $pattern          = [
         '/index\.php\?page=([\d]+)(\'|\")/is',
     ];
     public $replace = [
@@ -71,41 +72,41 @@ class page
     public function __construct($array)
     {
         if (is_array($array)) {
-            if (!array_key_exists('total', $array)) {
+            if (! array_key_exists('total', $array)) {
                 $this->error(__FUNCTION__, 'need a param of total');
             }
-            $total = intval($array['total']);
-            $per_page = array_key_exists('per_page', $array) ? intval($array['per_page']) : 10;
+            $total     = intval($array['total']);
+            $per_page  = array_key_exists('per_page', $array) ? intval($array['per_page']) : 10;
             $now_index = array_key_exists('now_index', $array) ? intval($array['now_index']) : '';
-            $url = array_key_exists('url', $array) ? $array['url'] : '';
-            $rewrite = array_key_exists('rewrite', $array) ? $array['rewrite'] : true;
+            $url       = array_key_exists('url', $array) ? $array['url'] : '';
+            $rewrite   = array_key_exists('rewrite', $array) ? $array['rewrite'] : true;
         } else {
-            $total = $array;
-            $per_page = 10;
+            $total     = $array;
+            $per_page  = 10;
             $now_index = '';
-            $url = '';
-            $rewrite = true;
+            $url       = '';
+            $rewrite   = true;
         }
-        if (!is_int($total) || $total < 0) {
+        if (! is_int($total) || $total < 0) {
             $this->error(__FUNCTION__, $total . ' is not a positive integer!');
         }
-        if (!is_int($per_page) || $per_page <= 0) {
+        if (! is_int($per_page) || $per_page <= 0) {
             $this->error(__FUNCTION__, $per_page . ' is not a positive integer!');
         }
-        if (!empty($array['page_name'])) {
+        if (! empty($array['page_name'])) {
             $this->set('page_name', $array['page_name']);
         }
         //设置pageName
         if ($now_index > 999) {
             $this->page_bar_num = 7;
         }
-        $this->total = $total;
+        $this->total      = $total;
         $this->total_page = ceil($total / $per_page);
         $this->set_now_index($now_index); //设置当前页
-        $this->set_url($url); //设置链接地址
-        $this->offset = ($this->now_index - 1) * $per_page;
+        $this->set_url($url);             //设置链接地址
+        $this->offset  = ($this->now_index - 1) * $per_page;
         $this->rewrite = $rewrite;
-        if (!empty($array['ajax'])) {
+        if (! empty($array['ajax'])) {
             $this->open_ajax($array['ajax']);
         }
         //打开AJAX模式
@@ -134,7 +135,7 @@ class page
      */
     public function open_ajax($action)
     {
-        $this->is_ajax = true;
+        $this->is_ajax          = true;
         $this->ajax_action_name = $action;
     }
 
@@ -207,8 +208,8 @@ class page
         if ($this->page_bar_num - $plus + $this->now_index > $this->total_page) {
             $plus = $this->page_bar_num - $this->total_page + $this->now_index;
         }
-        $begin = $this->now_index - $plus + 1;
-        $begin = $begin >= 1 ? $begin : 1;
+        $begin  = $this->now_index - $plus + 1;
+        $begin  = $begin >= 1 ? $begin : 1;
         $return = '';
         for ($i = $begin; $i < $begin + $this->page_bar_num; $i++) {
             if ($i <= $this->total_page) {
@@ -270,10 +271,10 @@ class page
         switch ($mode) {
             case '1':
                 $this->first_page = '<span class="icon-fast-backward"></span>';
-                $this->pre_page = '<span class="icon-triangle"></span>';
-                $this->next_page = '<span class="icon-triangle-4"></span>';
-                $this->last_page = '<span class="icon-fast-forward"></span>';
-                $return =
+                $this->pre_page   = '<span class="icon-triangle"></span>';
+                $this->next_page  = '<span class="icon-triangle-4"></span>';
+                $this->last_page  = '<span class="icon-fast-forward"></span>';
+                $return           =
                 $this->page_bar('page') .
                 $this->first_page('') .
                 $this->pre_page('') .
@@ -283,22 +284,22 @@ class page
                 break;
             case '2':
                 $this->first_page = '<span class="icon-fast-backward"></span>';
-                $this->pre_page = '<span class="icon-triangle"></span>';
-                $this->next_page = '<span class="icon-triangle-4"></span>';
-                $this->last_page = '<span class="icon-fast-forward"></span>';
-                $return = $this->first_page('') . $this->pre_page('') . $this->nowbar('', 'active') . $this->next_page('') . $this->last_page('');
+                $this->pre_page   = '<span class="icon-triangle"></span>';
+                $this->next_page  = '<span class="icon-triangle-4"></span>';
+                $this->last_page  = '<span class="icon-fast-forward"></span>';
+                $return           = $this->first_page('') . $this->pre_page('') . $this->nowbar('', 'active') . $this->next_page('') . $this->last_page('');
                 break;
             case '3':
-                $this->next_page = '下一页';
-                $this->pre_page = '上一页';
+                $this->next_page  = '下一页';
+                $this->pre_page   = '上一页';
                 $this->first_page = '首页';
-                $this->last_page = '尾页';
-                $return = $this->first_page() . $this->pre_page() . $this->next_page() . $this->last_page();
+                $this->last_page  = '尾页';
+                $return           = $this->first_page() . $this->pre_page() . $this->next_page() . $this->last_page();
                 break;
             case '4':
                 $this->next_page = '下一页';
-                $this->pre_page = '上一页';
-                $return = $this->pre_page() . $this->nowbar() . $this->next_page();
+                $this->pre_page  = '上一页';
+                $return          = $this->pre_page() . $this->nowbar() . $this->next_page();
                 break;
         }
         if ($this->rewrite) {
@@ -318,7 +319,7 @@ class page
      */
     public function set_url($url = '')
     {
-        if (!empty($url)) {
+        if (! empty($url)) {
             //手动设置
             $last = $url[strlen($url) - 1];
             if (stristr($url, '?') == '?') {
@@ -337,7 +338,7 @@ class page
                 if (stristr($qs, $this->page_name . '=')) {
                     //地址存在页面参数
                     $this->url = $_SERVER['PHP_SELF'] . '?' . str_replace($this->page_name . '=' . $this->now_index, '', $this->parseurl($qs));
-                    $last = $this->url[strlen($this->url) - 1];
+                    $last      = $this->url[strlen($this->url) - 1];
                     if ($last == '?' || $last == '&') {
                         $this->url .= $this->page_name . '=';
                     } else {
@@ -442,7 +443,7 @@ class page
 
     public function replacePjax($url)
     {
-        $return = [];
+        $return  = [];
         $arr_url = explode('&', $url);
         if (count($arr_url) > 0) {
             foreach ($arr_url as $key => $value) {
