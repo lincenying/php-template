@@ -84,6 +84,16 @@ webserver:
 docker-compose build --no-cache
 docker-compose up -d
 
-# 进入mysql_db容器, 恢复mysql数据库
+# 进入mysql_db容器
+docker exec -it php-mysql-db /bin/bash
+# 恢复mysql数据库
 mysql -uuser -p cyxiaowu < /home/mysql/mysql.sql
+
+# 进入app容器
+docker exec -it php-app-server /bin/bash
+# 安装composer依赖
+cd /home/web/php-template
+composer install --no-dev --no-scripts --no-autoloader
+composer dump-autoload --optimize
+
 ```

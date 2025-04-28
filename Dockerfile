@@ -15,10 +15,3 @@ WORKDIR /home/web/php-template
 
 RUN chown -R www-data:www-data /home/web/php-template
 RUN chown -R 755 /home/web/php-template
-
-# 复制依赖文件并安装
-COPY app/composer.json app/composer.lock ./
-RUN composer install --no-dev --no-scripts --no-autoloader
-
-# 生成自动加载
-RUN composer dump-autoload --optimize
