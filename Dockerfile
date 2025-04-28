@@ -14,6 +14,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
 WORKDIR /home/web/php-template
 
 RUN chown -R www-data:www-data /home/web/php-template
+RUN chown -R 755 /home/web/php-template
 
 # 复制依赖文件并安装
 COPY app/composer.json app/composer.lock ./

@@ -81,7 +81,7 @@ webserver:
 ```bash
 # 生成镜像及启动容器
 # 后端服务器一起启动
-docker-compose build
+docker-compose build --no-cache
 docker-compose up -d
 
 # 进入mysql_db容器, 恢复mysql数据库
